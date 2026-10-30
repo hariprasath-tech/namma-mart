@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { MapPin, ShoppingBag, Store, Globe, ChevronDown } from 'lucide-react';
+import { MapPin, ShoppingBag, Store, Globe, ChevronDown, Eye } from 'lucide-react';
 import { useLocationStore } from '../../store/location';
 import { useCartStore } from '../../store/cart';
 import { useLangStore } from '../../store/lang';
 import { useAuthStore } from '../../store/auth';
+import { useSimpleModeStore } from '../../store/simpleMode';
 import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {
@@ -18,6 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLocationModal }) => {
   const { getItemCount } = useCartStore();
   const { language, toggleLanguage } = useLangStore();
   const { user } = useAuthStore();
+  const { isSimpleMode, toggleSimpleMode } = useSimpleModeStore();
 
   const cartCount = getItemCount();
 
@@ -56,6 +58,22 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLocationModal }) => {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Simple Mode Toggle for Elderly Users */}
+          <button
+            onClick={toggleSimpleMode}
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border text-xs sm:text-sm font-bold transition-all min-h-[38px] ${
+              isSimpleMode
+                ? 'bg-[#FFB400] text-[#14201B] border-[#FFB400] shadow-sm'
+                : 'bg-white/10 hover:bg-white/15 border-white/15 text-white/90'
+            }`}
+            title="Toggle Simple / Elderly Friendly Mode"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">
+              {isSimpleMode ? 'Simple Mode ON' : 'Simple Mode'}
+            </span>
+          </button>
+
           {/* Language Switcher */}
           <button
             onClick={toggleLanguage}

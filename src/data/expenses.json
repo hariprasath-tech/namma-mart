@@ -1,0 +1,15 @@
+[
+  { "id": "exp-1", "shopId": "shop-1", "amount": 18500, "category": "stock purchase", "mode": "upi", "date": "2026-10-28", "note": "Wholesale Ponni Rice 500kg procurement from Anamalai Mill" },
+  { "id": "exp-2", "shopId": "shop-1", "amount": 6500, "category": "rent", "mode": "upi", "date": "2026-10-01", "note": "Bazaar street shop monthly lease" },
+  { "id": "exp-3", "shopId": "shop-1", "amount": 2400, "category": "electricity", "mode": "upi", "date": "2026-10-15", "note": "TNEB commercial electricity bill" },
+  { "id": "exp-4", "shopId": "shop-1", "amount": 8000, "category": "salary", "mode": "cash", "date": "2026-10-05", "note": "Shop assistant monthly wages (Kannan)" },
+  { "id": "exp-5", "shopId": "shop-1", "amount": 750, "category": "transport", "mode": "cash", "date": "2026-10-24", "note": "Auto cargo freight from Pollachi goods shed" },
+  { "id": "exp-6", "shopId": "shop-1", "amount": 1200, "category": "packaging", "mode": "cash", "date": "2026-10-18", "note": "Cloth delivery bags and brown kraft paper covers" },
+  { "id": "exp-7", "shopId": "shop-1", "amount": 650, "category": "repairs", "mode": "cash", "date": "2026-10-22", "note": "Digital billing scale servicing" },
+  { "id": "exp-8", "shopId": "shop-1", "amount": 450, "category": "other", "mode": "cash", "date": "2026-10-29", "note": "Tea and snacks for workers" },
+  { "id": "exp-9", "shopId": "shop-1", "amount": 9200, "category": "stock purchase", "mode": "upi", "date": "2026-10-20", "note": "Tata salt & Aachi spice packet restock" },
+  { "id": "exp-10", "shopId": "shop-1", "amount": 540, "category": "packaging", "mode": "upi", "date": "2026-10-26", "note": "Barcode label rolls and thermal receipt paper" },
+  { "id": "exp-11", "shopId": "shop-2", "amount": 34000, "category": "stock purchase", "mode": "upi", "date": "2026-10-27", "note": "FMCG Dairy & Groceries consignment" },
+  { "id": "exp-12", "shopId": "shop-2", "amount": 14000, "category": "salary", "mode": "upi", "date": "2026-10-05", "note": "Store staff salaries (2 staff)" },
+  { "id": "exp-13", "shopId": "shop-2", "amount": 5800, "category": "electricity", "mode": "upi", "date": "2026-10-14", "note": "Chiller and AC power bill" }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "rev-1",
+    "shopId": "shop-1",
+    "rating": 5,
+    "text": "Sri Krishna Maligai is our family's trusted shop for 20 years. Always clean Ponni rice and quick delivery to Bazaar area.",
+    "textTa": "20 வருடங்களாக எங்கள் குடும்பத்தின் நம்பிக்கையான கடை. சுத்தமான பொன்னி அரிசி மற்றும் விரைவான டெலிவரி.",
+    "author": "Karthik Subramanian",
+    "date": "2026-10-18"
+  },
+  {
+    "id": "rev-2",
+    "shopId": "shop-1",
+    "rating": 4,
+    "text": "Good prices and friendly uncle at the billing desk. Items are packed neatly.",
+    "textTa": "நியாயமான விலை மற்றும் அன்பான சேவை.",
+    "author": "Meenakshi R.",
+    "date": "2026-10-12"
+  },
+  {
+    "id": "rev-3",
+    "shopId": "shop-3",
+    "rating": 5,
+    "text": "Best rice mandi in Pollachi. Wholesale prices directly for 25kg and 10kg bags. Stone-free rice always.",
+    "textTa": "பொள்ளாச்சியில் சிறந்த அரிசி மண்டி. மொத்த விலையில் உயர்தர அரிசி.",
+    "author": "Senthil Kumar V.",
+    "date": "2026-10-24"
+  },
+  {
+    "id": "rev-4",
+    "shopId": "shop-4",
+    "rating": 5,
+    "text": "Open late at night when baby medicines were urgently needed at 11 PM. Very grateful.",
+    "textTa": "இரவு 11 மணிக்கு அவசர மருந்து தேவைப்பட்ட போது உதவியாக இருந்தது.",
+    "author": "Priya Dharmaraj",
+    "date": "2026-10-20"
+  },
+  {
+    "id": "rev-5",
+    "shopId": "shop-7",
+    "rating": 5,
+    "text": "Original Anamalai Karupatti and freshly harvested sweet coconuts. Purest taste.",
+    "textTa": "அசல் ஆனைமலை கருப்பட்டி மற்றும் நாட்டு தேங்காய்.",
+    "author": "Velusamy G.",
+    "date": "2026-10-22"
+  },
+  {
+    "id": "rev-6",
+    "shopId": "shop-14",
+    "rating": 5,
+    "text": "Live cold-press oil mill right in front of our eyes. The coconut oil smell is amazing.",
+    "textTa": "நம் கண் முன்னரே மரச்செக்கில் ஆட்டப்படும் சுத்தமான தேங்காய் எண்ணெய்.",
+    "author": "Arunachalam P.",
+    "date": "2026-10-25"
+  },
+  {
+    "id": "rev-7",
+    "shopId": "shop-2",
+    "rating": 4,
+    "text": "Selvi Supermarket has everything under one roof on Palakkad road. Good parking space.",
+    "textTa": "பாலக்காடு ரோட்டில் ஒரே இடத்தில் அனைத்து பொருட்களும் கிடைக்கின்றன.",
+    "author": "Anand Mohan",
+    "date": "2026-10-15"
+  },
+  {
+    "id": "rev-8",
+    "shopId": "shop-5",
+    "rating": 5,
+    "text": "All college lab record sheets, project files and calculators always available.",
+    "textTa": "கல்லூரிக்கு தேவையான அனைத்து நோட்டு மற்றும் பைல்கள் உடனே கிடைக்கும்.",
+    "author": "Divya NGM College",
+    "date": "2026-10-10"
+  }
+]

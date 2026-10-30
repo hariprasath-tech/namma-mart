@@ -1,0 +1,77 @@
+[
+  {
+    "id": "req-1",
+    "text": "Need 40W Heavy Duty LED Street/Courtyard Bulb, urgently today",
+    "area": "Palakkad Road, Pollachi",
+    "createdAt": "2026-10-30T10:15:00.000Z",
+    "customerName": "Ramesh Kumar",
+    "customerPhone": "+91 98421 11223",
+    "replies": [
+      {
+        "shopId": "shop-6",
+        "shopName": "Sakthi Electricals & Hardware",
+        "price": 380,
+        "available": true,
+        "replyAt": "2026-10-30T10:22:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "req-2",
+    "text": "Looking for unpolished brown unrefined native Karupatti (2kg block)",
+    "area": "Bazaar Street, Pollachi",
+    "createdAt": "2026-10-30T11:40:00.000Z",
+    "customerName": "Sangeetha N.",
+    "customerPhone": "+91 97890 22334",
+    "replies": [
+      {
+        "shopId": "shop-7",
+        "shopName": "Murugan Traditional Coconut Mart",
+        "price": 220,
+        "available": true,
+        "replyAt": "2026-10-30T11:45:00.000Z"
+      },
+      {
+        "shopId": "shop-1",
+        "shopName": "Sri Krishna Maligai",
+        "price": 235,
+        "available": true,
+        "replyAt": "2026-10-30T11:48:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "req-3",
+    "text": "Need Camlin 24 shade watercolor cakes set for school project",
+    "area": "Coimbatore Road, Pollachi",
+    "createdAt": "2026-10-30T13:10:00.000Z",
+    "customerName": "Deepa (NGM College parent)",
+    "customerPhone": "+91 98432 33445",
+    "replies": [
+      {
+        "shopId": "shop-5",
+        "shopName": "Thangam Book Center",
+        "price": 140,
+        "available": true,
+        "replyAt": "2026-10-30T13:15:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "req-4",
+    "text": "Looking for 1-inch Brass foot valve for borewell pump",
+    "area": "Kottur Road, Pollachi",
+    "createdAt": "2026-10-30T14:30:00.000Z",
+    "customerName": "Kandasamy Farmer",
+    "customerPhone": "+91 99441 55667",
+    "replies": [
+      {
+        "shopId": "shop-12",
+        "shopName": "Modern Hardware & Power Tools",
+        "price": 420,
+        "available": true,
+        "replyAt": "2026-10-30T14:38:00.000Z"
+      }
+    ]
+  }
+]

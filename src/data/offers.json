@@ -1,0 +1,169 @@
+[
+  {"id": "off-1", "productId": "prod-1", "shopId": "shop-1", "price": 52, "mrp": 58, "stock": 24, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-2", "productId": "prod-1", "shopId": "shop-2", "price": 54, "mrp": 60, "stock": 14, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-3", "productId": "prod-1", "shopId": "shop-3", "price": 48, "mrp": 55, "stock": 45, "deliveryEstMins": 35, "pickupEstMins": 15},
+  {"id": "off-4", "productId": "prod-1", "shopId": "shop-7", "price": 50, "mrp": 58, "stock": 18, "deliveryEstMins": 30, "pickupEstMins": 10},
+  {"id": "off-5", "productId": "prod-1", "shopId": "shop-10", "price": 56, "mrp": 62, "stock": 9, "deliveryEstMins": 40, "pickupEstMins": 15},
+
+  {"id": "off-6", "productId": "prod-2", "shopId": "shop-14", "price": 210, "mrp": 250, "stock": 60, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-7", "productId": "prod-2", "shopId": "shop-7", "price": 225, "mrp": 250, "stock": 35, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-8", "productId": "prod-2", "shopId": "shop-1", "price": 235, "mrp": 260, "stock": 16, "deliveryEstMins": 30, "pickupEstMins": 15},
+  {"id": "off-9", "productId": "prod-2", "shopId": "shop-3", "price": 230, "mrp": 255, "stock": 25, "deliveryEstMins": 35, "pickupEstMins": 10},
+  {"id": "off-10", "productId": "prod-2", "shopId": "shop-10", "price": 248, "mrp": 270, "stock": 8, "deliveryEstMins": 40, "pickupEstMins": 15},
+
+  {"id": "off-11", "productId": "prod-3", "shopId": "shop-7", "price": 110, "mrp": 130, "stock": 28, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-12", "productId": "prod-3", "shopId": "shop-1", "price": 120, "mrp": 135, "stock": 12, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-13", "productId": "prod-3", "shopId": "shop-10", "price": 125, "mrp": 140, "stock": 15, "deliveryEstMins": 35, "pickupEstMins": 15},
+  {"id": "off-14", "productId": "prod-3", "shopId": "shop-3", "price": 115, "mrp": 130, "stock": 20, "deliveryEstMins": 30, "pickupEstMins": 10},
+
+  {"id": "off-15", "productId": "prod-4", "shopId": "shop-1", "price": 42, "mrp": 46, "stock": 32, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-16", "productId": "prod-4", "shopId": "shop-2", "price": 44, "mrp": 46, "stock": 20, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-17", "productId": "prod-4", "shopId": "shop-3", "price": 40, "mrp": 46, "stock": 4, "deliveryEstMins": 25, "pickupEstMins": 10},
+
+  {"id": "off-18", "productId": "prod-5", "shopId": "shop-1", "price": 28, "mrp": 30, "stock": 50, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-19", "productId": "prod-5", "shopId": "shop-2", "price": 28, "mrp": 30, "stock": 40, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-20", "productId": "prod-5", "shopId": "shop-3", "price": 27, "mrp": 30, "stock": 80, "deliveryEstMins": 30, "pickupEstMins": 10},
+
+  {"id": "off-21", "productId": "prod-6", "shopId": "shop-3", "price": 145, "mrp": 165, "stock": 35, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-22", "productId": "prod-6", "shopId": "shop-1", "price": 152, "mrp": 170, "stock": 18, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-23", "productId": "prod-6", "shopId": "shop-10", "price": 168, "mrp": 185, "stock": 10, "deliveryEstMins": 35, "pickupEstMins": 15},
+
+  {"id": "off-24", "productId": "prod-7", "shopId": "shop-1", "price": 95, "mrp": 110, "stock": 22, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-25", "productId": "prod-7", "shopId": "shop-2", "price": 98, "mrp": 110, "stock": 15, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-26", "productId": "prod-7", "shopId": "shop-10", "price": 105, "mrp": 115, "stock": 8, "deliveryEstMins": 35, "pickupEstMins": 15},
+
+  {"id": "off-27", "productId": "prod-8", "shopId": "shop-2", "price": 28, "mrp": 30, "stock": 25, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-28", "productId": "prod-8", "shopId": "shop-1", "price": 30, "mrp": 30, "stock": 12, "deliveryEstMins": 20, "pickupEstMins": 10},
+
+  {"id": "off-29", "productId": "prod-9", "shopId": "shop-1", "price": 130, "mrp": 145, "stock": 16, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-30", "productId": "prod-9", "shopId": "shop-2", "price": 135, "mrp": 145, "stock": 11, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-31", "productId": "prod-9", "shopId": "shop-10", "price": 142, "mrp": 150, "stock": 7, "deliveryEstMins": 35, "pickupEstMins": 15},
+
+  {"id": "off-32", "productId": "prod-10", "shopId": "shop-7", "price": 32, "mrp": 38, "stock": 40, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-33", "productId": "prod-10", "shopId": "shop-1", "price": 35, "mrp": 38, "stock": 25, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-34", "productId": "prod-10", "shopId": "shop-10", "price": 38, "mrp": 42, "stock": 18, "deliveryEstMins": 35, "pickupEstMins": 15},
+
+  {"id": "off-35", "productId": "prod-11", "shopId": "shop-6", "price": 89, "mrp": 120, "stock": 30, "deliveryEstMins": 30, "pickupEstMins": 10},
+  {"id": "off-36", "productId": "prod-11", "shopId": "shop-12", "price": 95, "mrp": 120, "stock": 18, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-37", "productId": "prod-11", "shopId": "shop-5", "price": 99, "mrp": 120, "stock": 12, "deliveryEstMins": 0, "pickupEstMins": 10},
+
+  {"id": "off-38", "productId": "prod-12", "shopId": "shop-6", "price": 280, "mrp": 350, "stock": 15, "deliveryEstMins": 30, "pickupEstMins": 10},
+  {"id": "off-39", "productId": "prod-12", "shopId": "shop-12", "price": 295, "mrp": 360, "stock": 8, "deliveryEstMins": 25, "pickupEstMins": 10},
+
+  {"id": "off-40", "productId": "prod-13", "shopId": "shop-5", "price": 149, "mrp": 299, "stock": 25, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-41", "productId": "prod-13", "shopId": "shop-6", "price": 160, "mrp": 300, "stock": 14, "deliveryEstMins": 30, "pickupEstMins": 10},
+
+  {"id": "off-42", "productId": "prod-14", "shopId": "shop-6", "price": 240, "mrp": 320, "stock": 16, "deliveryEstMins": 30, "pickupEstMins": 10},
+  {"id": "off-43", "productId": "prod-14", "shopId": "shop-12", "price": 260, "mrp": 340, "stock": 7, "deliveryEstMins": 25, "pickupEstMins": 10},
+
+  {"id": "off-44", "productId": "prod-15", "shopId": "shop-5", "price": 140, "mrp": 160, "stock": 35, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-45", "productId": "prod-15", "shopId": "shop-6", "price": 145, "mrp": 160, "stock": 20, "deliveryEstMins": 30, "pickupEstMins": 10},
+  {"id": "off-46", "productId": "prod-15", "shopId": "shop-2", "price": 150, "mrp": 160, "stock": 15, "deliveryEstMins": 15, "pickupEstMins": 10},
+
+  {"id": "off-47", "productId": "prod-16", "shopId": "shop-5", "price": 120, "mrp": 250, "stock": 22, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-48", "productId": "prod-16", "shopId": "shop-13", "price": 130, "mrp": 250, "stock": 16, "deliveryEstMins": 0, "pickupEstMins": 10},
+
+  {"id": "off-49", "productId": "prod-17", "shopId": "shop-13", "price": 55, "mrp": 65, "stock": 60, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-50", "productId": "prod-17", "shopId": "shop-5", "price": 58, "mrp": 65, "stock": 45, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-51", "productId": "prod-17", "shopId": "shop-2", "price": 62, "mrp": 65, "stock": 18, "deliveryEstMins": 15, "pickupEstMins": 10},
+
+  {"id": "off-52", "productId": "prod-18", "shopId": "shop-13", "price": 280, "mrp": 330, "stock": 30, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-53", "productId": "prod-18", "shopId": "shop-5", "price": 290, "mrp": 330, "stock": 22, "deliveryEstMins": 0, "pickupEstMins": 10},
+
+  {"id": "off-54", "productId": "prod-19", "shopId": "shop-13", "price": 45, "mrp": 50, "stock": 80, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-55", "productId": "prod-19", "shopId": "shop-5", "price": 45, "mrp": 50, "stock": 50, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-56", "productId": "prod-19", "shopId": "shop-2", "price": 48, "mrp": 50, "stock": 30, "deliveryEstMins": 15, "pickupEstMins": 10},
+
+  {"id": "off-57", "productId": "prod-20", "shopId": "shop-13", "price": 125, "mrp": 150, "stock": 25, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-58", "productId": "prod-20", "shopId": "shop-5", "price": 130, "mrp": 150, "stock": 18, "deliveryEstMins": 0, "pickupEstMins": 10},
+
+  {"id": "off-59", "productId": "prod-21", "shopId": "shop-5", "price": 38, "mrp": 40, "stock": 40, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-60", "productId": "prod-21", "shopId": "shop-13", "price": 38, "mrp": 40, "stock": 35, "deliveryEstMins": 0, "pickupEstMins": 10},
+
+  {"id": "off-61", "productId": "prod-22", "shopId": "shop-5", "price": 95, "mrp": 120, "stock": 24, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-62", "productId": "prod-22", "shopId": "shop-13", "price": 100, "mrp": 120, "stock": 19, "deliveryEstMins": 0, "pickupEstMins": 10},
+
+  {"id": "off-63", "productId": "prod-23", "shopId": "shop-12", "price": 220, "mrp": 290, "stock": 14, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-64", "productId": "prod-23", "shopId": "shop-6", "price": 235, "mrp": 300, "stock": 11, "deliveryEstMins": 30, "pickupEstMins": 10},
+  {"id": "off-65", "productId": "prod-23", "shopId": "shop-9", "price": 245, "mrp": 310, "stock": 5, "deliveryEstMins": 35, "pickupEstMins": 15},
+
+  {"id": "off-66", "productId": "prod-24", "shopId": "shop-6", "price": 50, "mrp": 60, "stock": 45, "deliveryEstMins": 30, "pickupEstMins": 10},
+  {"id": "off-67", "productId": "prod-24", "shopId": "shop-12", "price": 55, "mrp": 60, "stock": 30, "deliveryEstMins": 25, "pickupEstMins": 10},
+
+  {"id": "off-68", "productId": "prod-25", "shopId": "shop-12", "price": 340, "mrp": 420, "stock": 10, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-69", "productId": "prod-25", "shopId": "shop-6", "price": 360, "mrp": 450, "stock": 8, "deliveryEstMins": 30, "pickupEstMins": 10},
+
+  {"id": "off-70", "productId": "prod-26", "shopId": "shop-12", "price": 175, "mrp": 220, "stock": 16, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-71", "productId": "prod-26", "shopId": "shop-6", "price": 185, "mrp": 230, "stock": 12, "deliveryEstMins": 30, "pickupEstMins": 10},
+
+  {"id": "off-72", "productId": "prod-27", "shopId": "shop-12", "price": 42, "mrp": 50, "stock": 28, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-73", "productId": "prod-27", "shopId": "shop-6", "price": 45, "mrp": 50, "stock": 20, "deliveryEstMins": 30, "pickupEstMins": 10},
+
+  {"id": "off-74", "productId": "prod-28", "shopId": "shop-4", "price": 31, "mrp": 34, "stock": 50, "deliveryEstMins": 20, "pickupEstMins": 5},
+  {"id": "off-75", "productId": "prod-28", "shopId": "shop-11", "price": 32, "mrp": 34, "stock": 40, "deliveryEstMins": 25, "pickupEstMins": 10},
+
+  {"id": "off-76", "productId": "prod-29", "shopId": "shop-4", "price": 135, "mrp": 150, "stock": 30, "deliveryEstMins": 20, "pickupEstMins": 5},
+  {"id": "off-77", "productId": "prod-29", "shopId": "shop-11", "price": 140, "mrp": 150, "stock": 22, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-78", "productId": "prod-29", "shopId": "shop-2", "price": 145, "mrp": 150, "stock": 14, "deliveryEstMins": 15, "pickupEstMins": 10},
+
+  {"id": "off-79", "productId": "prod-30", "shopId": "shop-4", "price": 175, "mrp": 250, "stock": 15, "deliveryEstMins": 20, "pickupEstMins": 5},
+  {"id": "off-80", "productId": "prod-30", "shopId": "shop-11", "price": 185, "mrp": 250, "stock": 12, "deliveryEstMins": 25, "pickupEstMins": 10},
+
+  {"id": "off-81", "productId": "prod-31", "shopId": "shop-4", "price": 150, "mrp": 170, "stock": 20, "deliveryEstMins": 20, "pickupEstMins": 5},
+  {"id": "off-82", "productId": "prod-31", "shopId": "shop-11", "price": 155, "mrp": 170, "stock": 18, "deliveryEstMins": 25, "pickupEstMins": 10},
+
+  {"id": "off-83", "productId": "prod-32", "shopId": "shop-4", "price": 48, "mrp": 55, "stock": 35, "deliveryEstMins": 20, "pickupEstMins": 5},
+  {"id": "off-84", "productId": "prod-32", "shopId": "shop-11", "price": 50, "mrp": 55, "stock": 25, "deliveryEstMins": 25, "pickupEstMins": 10},
+
+  {"id": "off-85", "productId": "prod-33", "shopId": "shop-8", "price": 280, "mrp": 350, "stock": 25, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-86", "productId": "prod-33", "shopId": "shop-2", "price": 310, "mrp": 360, "stock": 9, "deliveryEstMins": 15, "pickupEstMins": 10},
+
+  {"id": "off-87", "productId": "prod-34", "shopId": "shop-8", "price": 680, "mrp": 850, "stock": 14, "deliveryEstMins": 0, "pickupEstMins": 10},
+
+  {"id": "off-88", "productId": "prod-35", "shopId": "shop-8", "price": 195, "mrp": 240, "stock": 30, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-89", "productId": "prod-35", "shopId": "shop-2", "price": 210, "mrp": 240, "stock": 12, "deliveryEstMins": 15, "pickupEstMins": 10},
+
+  {"id": "off-90", "productId": "prod-36", "shopId": "shop-8", "price": 110, "mrp": 140, "stock": 40, "deliveryEstMins": 0, "pickupEstMins": 10},
+  {"id": "off-91", "productId": "prod-36", "shopId": "shop-7", "price": 120, "mrp": 140, "stock": 18, "deliveryEstMins": 20, "pickupEstMins": 10},
+
+  {"id": "off-92", "productId": "prod-37", "shopId": "shop-7", "price": 75, "mrp": 90, "stock": 35, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-93", "productId": "prod-37", "shopId": "shop-1", "price": 80, "mrp": 95, "stock": 20, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-94", "productId": "prod-37", "shopId": "shop-9", "price": 85, "mrp": 100, "stock": 12, "deliveryEstMins": 35, "pickupEstMins": 15},
+
+  {"id": "off-95", "productId": "prod-38", "shopId": "shop-1", "price": 42, "mrp": 50, "stock": 45, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-96", "productId": "prod-38", "shopId": "shop-2", "price": 45, "mrp": 50, "stock": 30, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-97", "productId": "prod-38", "shopId": "shop-9", "price": 45, "mrp": 50, "stock": 25, "deliveryEstMins": 35, "pickupEstMins": 15},
+
+  {"id": "off-98", "productId": "prod-39", "shopId": "shop-1", "price": 95, "mrp": 115, "stock": 22, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-99", "productId": "prod-39", "shopId": "shop-2", "price": 99, "mrp": 115, "stock": 18, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-100", "productId": "prod-39", "shopId": "shop-4", "price": 105, "mrp": 120, "stock": 12, "deliveryEstMins": 20, "pickupEstMins": 5},
+
+  {"id": "off-101", "productId": "prod-40", "shopId": "shop-7", "price": 140, "mrp": 180, "stock": 15, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-102", "productId": "prod-40", "shopId": "shop-9", "price": 150, "mrp": 190, "stock": 8, "deliveryEstMins": 35, "pickupEstMins": 15},
+
+  {"id": "off-103", "productId": "prod-41", "shopId": "shop-3", "price": 54, "mrp": 62, "stock": 40, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-104", "productId": "prod-41", "shopId": "shop-1", "price": 58, "mrp": 65, "stock": 22, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-105", "productId": "prod-41", "shopId": "shop-10", "price": 64, "mrp": 70, "stock": 11, "deliveryEstMins": 35, "pickupEstMins": 15},
+
+  {"id": "off-106", "productId": "prod-42", "shopId": "shop-9", "price": 420, "mrp": 550, "stock": 6, "deliveryEstMins": 35, "pickupEstMins": 15},
+  {"id": "off-107", "productId": "prod-42", "shopId": "shop-7", "price": 450, "mrp": 580, "stock": 9, "deliveryEstMins": 20, "pickupEstMins": 10},
+
+  {"id": "off-108", "productId": "prod-1", "shopId": "shop-2", "price": 53, "mrp": 60, "stock": 15, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-109", "productId": "prod-2", "shopId": "shop-2", "price": 238, "mrp": 265, "stock": 12, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-110", "productId": "prod-4", "shopId": "shop-10", "price": 45, "mrp": 48, "stock": 16, "deliveryEstMins": 35, "pickupEstMins": 15},
+  {"id": "off-111", "productId": "prod-6", "shopId": "shop-2", "price": 155, "mrp": 170, "stock": 12, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-112", "productId": "prod-7", "shopId": "shop-3", "price": 96, "mrp": 110, "stock": 19, "deliveryEstMins": 25, "pickupEstMins": 10},
+  {"id": "off-113", "productId": "prod-10", "shopId": "shop-2", "price": 36, "mrp": 40, "stock": 15, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-114", "productId": "prod-11", "shopId": "shop-2", "price": 102, "mrp": 120, "stock": 10, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-115", "productId": "prod-12", "shopId": "shop-9", "price": 310, "mrp": 380, "stock": 4, "deliveryEstMins": 35, "pickupEstMins": 15},
+  {"id": "off-116", "productId": "prod-17", "shopId": "shop-1", "price": 60, "mrp": 65, "stock": 15, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-117", "productId": "prod-28", "shopId": "shop-2", "price": 33, "mrp": 34, "stock": 12, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-118", "productId": "prod-31", "shopId": "shop-2", "price": 160, "mrp": 170, "stock": 8, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-119", "productId": "prod-37", "shopId": "shop-2", "price": 82, "mrp": 95, "stock": 14, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-120", "productId": "prod-38", "shopId": "shop-7", "price": 44, "mrp": 50, "stock": 20, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-121", "productId": "prod-39", "shopId": "shop-7", "price": 98, "mrp": 115, "stock": 15, "deliveryEstMins": 20, "pickupEstMins": 10},
+  {"id": "off-122", "productId": "prod-41", "shopId": "shop-2", "price": 59, "mrp": 65, "stock": 18, "deliveryEstMins": 15, "pickupEstMins": 10},
+  {"id": "off-123", "productId": "prod-5", "shopId": "shop-10", "price": 29, "mrp": 30, "stock": 25, "deliveryEstMins": 35, "pickupEstMins": 15},
+  {"id": "off-124", "productId": "prod-8", "shopId": "shop-10", "price": 32, "mrp": 34, "stock": 14, "deliveryEstMins": 35, "pickupEstMins": 15},
+  {"id": "off-125", "productId": "prod-13", "shopId": "shop-13", "price": 155, "mrp": 299, "stock": 10, "deliveryEstMins": 0, "pickupEstMins": 10}
+]

@@ -1,0 +1,239 @@
+@import "tailwindcss";
+@import "./styles/tokens.css";
+
+@theme {
+  --color-palm: #0E3B2C;
+  --color-grove: #1F6B4A;
+  --color-marigold: #FFB400;
+  --color-chalk: #F7F9F4;
+  --color-ink: #14201B;
+  --color-chilli: #D63A2F;
+
+  --color-surface: #FFFFFF;
+  --color-subtle: #EEF3EA;
+  --color-border-subtle: #DDE5D9;
+  --color-border-strong: #BDCBB8;
+  --color-muted: #4E6057;
+
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --font-body: 'Hind Madurai', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--chalk);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tamil font line-height enhancement */
+html[lang="ta"] body {
+  line-height: 1.65;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-display);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+/* Touch targets at least 44px for accessibility & elderly users */
+button, a, input, select {
+  min-height: 44px;
+}
+
+/* Focus visible styling */
+:focus-visible {
+  outline: 2px solid var(--grove);
+  outline-offset: 2px;
+}
+
+/* Custom pulsing animation for the cheapest marigold pin */
+@keyframes marigold-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 180, 0, 0.7);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 10px rgba(255, 180, 0, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 180, 0, 0);
+  }
+}
+
+.pulse-marigold {
+  animation: marigold-pulse 2s infinite ease-in-out;
+}
+
+/* Slow breathing animation for crowded hot zones */
+@keyframes breathe-hot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(214, 58, 47, 0.45));
+  }
+}
+
+.breathe-hot {
+  transform-origin: center;
+  animation: breathe-hot 3.5s infinite ease-in-out;
+}
+
+/* Leaflet map container */
+.leaflet-container {
+  font-family: var(--font-body) !important;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   v2 Anchored Map Pins System
+   ========================================================================== */
+.map-pin-anchor {
+  position: relative;
+  transform: translate(-50%, -100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  outline: none;
+}
+
+.map-pin-anchor:focus-visible .map-pin-pill {
+  outline: 2px solid var(--marigold);
+  outline-offset: 2px;
+}
+
+/* Pill body sizing to content */
+.map-pin-pill {
+  width: max-content;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background-color: var(--palm);
+  color: var(--chalk);
+  border: 2px solid var(--chalk);
+  box-shadow: 0 3px 8px rgba(14, 59, 44, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.15;
+  transition: all 0.2s ease;
+}
+
+.map-pin-pill .price-line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.map-pin-pill .meta-line {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.92;
+}
+
+/* State: Cheapest */
+.map-pin-anchor.cheapest .map-pin-pill {
+  background-color: var(--marigold);
+  color: var(--ink);
+  border-color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(255, 180, 0, 0.45);
+}
+
+.map-pin-anchor.cheapest .map-pin-tail {
+  border-top-color: var(--marigold);
+}
+
+/* State: Closest */
+.map-pin-anchor.closest .map-pin-pill {
+  background-color: var(--grove);
+  color: #FFFFFF;
+}
+
+.map-pin-anchor.closest .map-pin-tail {
+  border-top-color: var(--grove);
+}
+
+/* State: Selected */
+.map-pin-anchor.selected {
+  transform: translate(-50%, -100%) scale(1.08);
+  z-index: 100 !important;
+}
+
+.map-pin-anchor.selected .map-pin-pill {
+  box-shadow: 0 8px 22px rgba(14, 59, 44, 0.35);
+  border-color: #FFFFFF;
+}
+
+/* State: Out of Stock */
+.map-pin-anchor.out-of-stock .map-pin-pill {
+  background-color: #4A5568;
+  color: #CBD5E0;
+  opacity: 0.8;
+}
+
+.map-pin-anchor.out-of-stock .price-line {
+  text-decoration: line-through;
+}
+
+.map-pin-anchor.out-of-stock .map-pin-tail {
+  border-top-color: #4A5568;
+}
+
+/* Downward anchor tail pointing to coordinates */
+.map-pin-tail {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--palm);
+  margin-top: -1px;
+}
+
+/* Pin dot anchored exactly on coordinate */
+.map-pin-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background-color: var(--palm);
+  margin-top: 1px;
+}
+
+.map-pin-anchor.cheapest .map-pin-dot {
+  background-color: var(--marigold);
+}
+
+.map-pin-anchor.closest .map-pin-dot {
+  background-color: var(--grove);
+}
+
+/* Hide scrollbar for category chips horizontal scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

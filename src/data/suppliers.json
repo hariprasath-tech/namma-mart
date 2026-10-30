@@ -1,0 +1,32 @@
+[
+  {
+    "id": "sup-1",
+    "name": "Anamalai Rice Mill & Agro Traders",
+    "phone": "+91 94431 00221",
+    "items": ["Ponni Boiled Rice (1kg)", "Sona Masoori Raw Rice (1kg)", "Idli Rice 25kg"]
+  },
+  {
+    "id": "sup-2",
+    "name": "Pollachi Copra & Cold Press Depot",
+    "phone": "+91 98422 11334",
+    "items": ["Pure Cold-Pressed Coconut Oil (1L)", "Traditional Anamalai Palm Jaggery (500g)"]
+  },
+  {
+    "id": "sup-3",
+    "name": "Kovai Spices & FMCG Wholesalers",
+    "phone": "+91 97890 44556",
+    "items": ["Aachi Chilli Powder (200g)", "Tata Vacuum Evaporated Salt (1kg)", "Erode Turmeric Powder (100g)"]
+  },
+  {
+    "id": "sup-4",
+    "name": "Western Electrical Distributors",
+    "phone": "+91 99445 66778",
+    "items": ["Philips 9W LED Bulb (Cool Day White)", "4-Socket Spike Guard Extension Board (3m)", "Duracell AAA Alkaline Batteries (Pack of 4)"]
+  },
+  {
+    "id": "sup-5",
+    "name": "Students Stationery & Paper Agency",
+    "phone": "+91 98430 88990",
+    "items": ["Classmate Long Ruled Notebook (192 pgs)", "JK Copier A4 Paper 75 GSM (500 Sheets)", "Reynolds 045 Fine Ball Pens (Pack of 5)"]
+  }
+]

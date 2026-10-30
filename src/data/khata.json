@@ -1,0 +1,11 @@
+[
+  { "id": "kh-1", "shopId": "shop-1", "customerName": "Velusamy Tailor", "phone": "+91 94433 11200", "type": "credit", "amount": 1450, "date": "2026-10-26", "note": "Monthly groceries on account (4 days ago)" },
+  { "id": "kh-2", "shopId": "shop-1", "customerName": "Radha Teacher", "phone": "+91 98421 77654", "type": "credit", "amount": 820, "date": "2026-10-24", "note": "Rice & cooking oil (6 days ago)" },
+  { "id": "kh-3", "shopId": "shop-1", "customerName": "Murugan Contractor", "phone": "+91 98420 54321", "type": "credit", "amount": 3200, "date": "2026-10-14", "note": "Bulk provision for house function (16 days ago)" },
+  { "id": "kh-4", "shopId": "shop-1", "customerName": "Sundaram Auto", "phone": "+91 97890 12345", "type": "credit", "amount": 650, "date": "2026-10-18", "note": "Snacks and tea supplies (12 days ago)" },
+  { "id": "kh-5", "shopId": "shop-1", "customerName": "Ganesan Electrician", "phone": "+91 99441 88765", "type": "credit", "amount": 2100, "date": "2026-09-22", "note": "Overdue balance (38 days ago - 30+ days bucket)" },
+  { "id": "kh-6", "shopId": "shop-1", "customerName": "Karthik Press", "phone": "+91 98432 99881", "type": "credit", "amount": 1750, "date": "2026-09-15", "note": "Overdue balance (45 days ago - 30+ days bucket)" },
+  { "id": "kh-7", "shopId": "shop-1", "customerName": "Velusamy Tailor", "phone": "+91 94433 11200", "type": "payment", "amount": 500, "date": "2026-10-28", "note": "Partial UPI payment received" },
+  { "id": "kh-8", "shopId": "shop-2", "customerName": "Priya Dharmaraj", "phone": "+91 98430 11928", "type": "credit", "amount": 1280, "date": "2026-10-22", "note": "Infant formula & groceries (8 days ago)" },
+  { "id": "kh-9", "shopId": "shop-2", "customerName": "Venkatesh Babu", "phone": "+91 94421 33456", "type": "credit", "amount": 4200, "date": "2026-09-28", "note": "32 days overdue" }
+]

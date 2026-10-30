@@ -1,0 +1,422 @@
+[
+  {
+    "id": "prod-1",
+    "name": "Ponni Boiled Rice (1kg)",
+    "nameTa": "பொன்னி புழுங்கல் அரிசி (1 கிலோ)",
+    "category": "Grocery",
+    "unit": "1 kg",
+    "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80",
+    "description": "Premium aged traditional Ponni boiled rice from local Pollachi mills. Cleaned and stone-free.",
+    "descriptionTa": "பொள்ளாச்சி ஆலைகளில் இருந்து தூய்மையான பாரம்பரிய பொன்னி புழுங்கல் அரிசி."
+  },
+  {
+    "id": "prod-2",
+    "name": "Pure Cold-Pressed Coconut Oil (1L)",
+    "nameTa": "தூய மரச்செக்கு தேங்காய் எண்ணெய் (1 லிட்டர்)",
+    "category": "Grocery",
+    "unit": "1 Litre",
+    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80",
+    "description": "100% natural wood-pressed coconut oil prepared from sun-dried Pollachi copra. Unrefined and aromatic.",
+    "descriptionTa": "பொள்ளாச்சி கொப்பரையில் இருந்து தயாரிக்கப்பட்ட 100% தூய மரச்செக்கு தேங்காய் எண்ணெய்."
+  },
+  {
+    "id": "prod-3",
+    "name": "Traditional Anamalai Palm Jaggery (500g)",
+    "nameTa": "ஆனைமலை பனை வெல்லம் (500 கிராம்)",
+    "category": "Grocery",
+    "unit": "500 g",
+    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80",
+    "description": "Authentic chemical-free Karupatti harvested from palms near the Anamalai foothills.",
+    "descriptionTa": "இரசாயனம் கலக்காத இயற்கை ஆனைமலை கருப்பட்டி."
+  },
+  {
+    "id": "prod-4",
+    "name": "Aachi Chilli Powder (200g)",
+    "nameTa": "ஆச்சி தனி மிளகாய் தூள் (200 கிராம்)",
+    "category": "Grocery",
+    "unit": "200 g",
+    "image": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
+    "description": "Sun-dried red chilli powder for rich colour and natural spicy flavour in South Indian curries.",
+    "descriptionTa": "பாரம்பரிய காரமும் தரமும் நிறைந்த சிவப்பு மிளகாய் தூள்."
+  },
+  {
+    "id": "prod-5",
+    "name": "Tata Vacuum Evaporated Salt (1kg)",
+    "nameTa": "டாடா அயோடின் உப்பு (1 கிலோ)",
+    "category": "Grocery",
+    "unit": "1 kg",
+    "image": "https://images.unsplash.com/photo-1518110903495-cd99c130c24e?auto=format&fit=crop&w=600&q=80",
+    "description": "Iodized and purity-sealed white table salt, an essential kitchen staple.",
+    "descriptionTa": "தூய்மையான அயோடின் கலந்த சமையல் உப்பு."
+  },
+  {
+    "id": "prod-6",
+    "name": "Pollachi Toor Dal (1kg)",
+    "nameTa": "துவரம் பருப்பு (1 கிலோ)",
+    "category": "Grocery",
+    "unit": "1 kg",
+    "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80",
+    "description": "Unpolished golden toor dal with high protein content, ideal for daily sambar and rasam.",
+    "descriptionTa": "சுவையான சாம்பாருக்கு ஏற்ற இயற்கை துவரம் பருப்பு."
+  },
+  {
+    "id": "prod-7",
+    "name": "Nilgiri Fresh Dust Tea Powder (250g)",
+    "nameTa": "நீலகிரி தேயிலை தூள் (250 கிராம்)",
+    "category": "Grocery",
+    "unit": "250 g",
+    "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+    "description": "Strong aromatic black tea dust directly sourced from high elevation Nilgiri slopes.",
+    "descriptionTa": "சுவையான மற்றும் புத்துணர்ச்சி தரும் நீலகிரி தேயிலை தூள்."
+  },
+  {
+    "id": "prod-8",
+    "name": "Country Cow Milk Pouch (500ml)",
+    "nameTa": "நாட்டு மாட்டு பால் (500 மி.லி)",
+    "category": "Grocery",
+    "unit": "500 ml",
+    "image": "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80",
+    "description": "Fresh morning pasteurized cow milk delivered cold daily.",
+    "descriptionTa": "தினமும் காலையில் பெறப்படும் சுத்தமான பசும்பால்."
+  },
+  {
+    "id": "prod-9",
+    "name": "Kumbakonam Degree Filter Coffee (200g)",
+    "nameTa": "கும்பகோணம் டிகிரி பில்டர் காபி (200 கிராம்)",
+    "category": "Grocery",
+    "unit": "200 g",
+    "image": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=600&q=80",
+    "description": "85:15 coffee and chicory blend for rich South Indian morning filter decoction.",
+    "descriptionTa": "பாரம்பரிய நறுமணமிக்க பில்டர் காபி பொடி."
+  },
+  {
+    "id": "prod-10",
+    "name": "Erode Turmeric Powder (100g)",
+    "nameTa": "ஈரோடு மஞ்சள் தூள் (100 கிராம்)",
+    "category": "Grocery",
+    "unit": "100 g",
+    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+    "description": "Pure farm-fresh ground turmeric with high curcumin value.",
+    "descriptionTa": "மருத்துவ குணம் கொண்ட இயற்கை மஞ்சள் தூள்."
+  },
+  {
+    "id": "prod-11",
+    "name": "Philips 9W LED Bulb (Cool Day White)",
+    "nameTa": "பிலிப்ஸ் 9W எல்இடி பல்பு",
+    "category": "Electronics",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1550524514-9b6d9e03d4fb?auto=format&fit=crop&w=600&q=80",
+    "description": "Energy efficient B22 base LED bulb with 85% energy savings and 2-year warranty.",
+    "descriptionTa": "நீண்ட ஆயுள் கொண்ட ஆற்றல் சேமிப்பு எல்இடி பல்பு."
+  },
+  {
+    "id": "prod-12",
+    "name": "4-Socket Spike Guard Extension Board (3m)",
+    "nameTa": "4-சாக்கெட் எக்ஸ்டென்ஷன் போர்டு (3 மீ)",
+    "category": "Electronics",
+    "unit": "1 unit",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "description": "Surge protector extension strip with safety shutter and individual switches.",
+    "descriptionTa": "பாதுகாப்பான 4-சாக்கெட் மின் இணைப்பு போர்டு."
+  },
+  {
+    "id": "prod-13",
+    "name": "Braided USB-C Fast Charging Cable (65W)",
+    "nameTa": "டைப்-சி பாஸ்ட் சார்ஜிங் கேபிள் (65W)",
+    "category": "Electronics",
+    "unit": "1 meter",
+    "image": "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=600&q=80",
+    "description": "Heavy-duty nylon braided fast charge cable compatible with Android & laptops.",
+    "descriptionTa": "வேகமாக சார்ஜ் செய்யக்கூடிய உறுதியான டைப்-சி கேபிள்."
+  },
+  {
+    "id": "prod-14",
+    "name": "Rechargeable Mosquito Swatter Bat",
+    "nameTa": "ரீசார்ஜ் செய்யக்கூடிய கொசு பேட்",
+    "category": "Electronics",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1584483766114-2cea6facdf57?auto=format&fit=crop&w=600&q=80",
+    "description": "Lithium battery electric insect swatter with built-in LED torchlight.",
+    "descriptionTa": "எல்இடி விளக்குடன் கூடிய தரமான கொசு பேட்."
+  },
+  {
+    "id": "prod-15",
+    "name": "Duracell AAA Alkaline Batteries (Pack of 4)",
+    "nameTa": "டியூராசெல் AAA பேட்டரிகள் (4 எண்ணிக்கை)",
+    "category": "Electronics",
+    "unit": "Pack of 4",
+    "image": "https://images.unsplash.com/photo-1619725002198-6a689b72f41d?auto=format&fit=crop&w=600&q=80",
+    "description": "Long lasting alkaline batteries for TV remotes, toys, and clocks.",
+    "descriptionTa": "டிவி ரிமோட் மற்றும் கடிகாரங்களுக்கான நீடித்த பேட்டரிகள்."
+  },
+  {
+    "id": "prod-16",
+    "name": "Wired Earphones with Mic (3.5mm)",
+    "nameTa": "மைக் வசதியுடன் கூடிய இயர்போன்",
+    "category": "Electronics",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
+    "description": "Clear voice calling and deep bass earphones for mobile phones and laptops.",
+    "descriptionTa": "தெளிவான குரல் மற்றும் இசைக்கான இயர்போன்."
+  },
+  {
+    "id": "prod-17",
+    "name": "Classmate Long Ruled Notebook (192 pgs)",
+    "nameTa": "கிளாஸ்மேட் கோடு போட்ட நோட்டு (192 பக்கங்கள்)",
+    "category": "Stationery",
+    "unit": "1 book",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "description": "High brightness smooth paper notebook for school and college coursework.",
+    "descriptionTa": "பள்ளி மற்றும் கல்லூரி மாணவர்களுக்கான தரமான நோட்டு புத்தகம்."
+  },
+  {
+    "id": "prod-18",
+    "name": "JK Copier A4 Paper 75 GSM (500 Sheets)",
+    "nameTa": "ஜேகே காப்பியர் A4 பேப்பர் ரீம் (500 தாள்கள்)",
+    "category": "Stationery",
+    "unit": "1 Ream",
+    "image": "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80",
+    "description": "Jam-free printer and photocopying paper ream with high opacity.",
+    "descriptionTa": "ஜெராக்ஸ் மற்றும் பிரிண்டருக்கான சிறந்த A4 காகித கட்டு."
+  },
+  {
+    "id": "prod-19",
+    "name": "Reynolds 045 Fine Ball Pens (Pack of 5)",
+    "nameTa": "ரினால்ட்ஸ் பால் பாயிண்ட் பேனா (5 எண்ணிக்கை)",
+    "category": "Stationery",
+    "unit": "Pack of 5",
+    "image": "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80",
+    "description": "Classic blue smudge-proof smooth writing ball pens.",
+    "descriptionTa": "மென்மையாக எழுதக்கூடிய நீல நிற பால் பாயிண்ட் பேனாக்கள்."
+  },
+  {
+    "id": "prod-20",
+    "name": "Camlin Exam Geometry Box",
+    "nameTa": "கேம்லின் ஜாமெட்ரி பாக்ஸ்",
+    "category": "Stationery",
+    "unit": "1 box",
+    "image": "https://images.unsplash.com/photo-1584483766114-2cea6facdf57?auto=format&fit=crop&w=600&q=80",
+    "description": "Precision compass, divider, set squares and 15cm ruler in sturdy metal tin.",
+    "descriptionTa": "மாணவர்களுக்கான முழுமையான கணித வரைபடப் பெட்டி."
+  },
+  {
+    "id": "prod-21",
+    "name": "Fevicol MR All Purpose Craft Glue (100g)",
+    "nameTa": "பெவிகால் பசை (100 கிராம்)",
+    "category": "Stationery",
+    "unit": "100 g",
+    "image": "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80",
+    "description": "Strong bonding adhesive for paper, cardboard, and craft work.",
+    "descriptionTa": "காகிதங்கள் மற்றும் கலைப் பொருட்களுக்கான ஒட்டும் பசை."
+  },
+  {
+    "id": "prod-22",
+    "name": "Fluorescent Highlighter Pens (Set of 4)",
+    "nameTa": "ஹைலைட்டர் பேனாக்கள் (4 வண்ணங்கள்)",
+    "category": "Stationery",
+    "unit": "Set of 4",
+    "image": "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80",
+    "description": "Chisel tip bright markers for studying and notes in yellow, green, pink, orange.",
+    "descriptionTa": "படிக்கும் போது குறிப்பெடுக்க உதவும் 4 வண்ண ஹைலைட்டர்கள்."
+  },
+  {
+    "id": "prod-23",
+    "name": "Stainless Steel Multi-Bit Screwdriver Set",
+    "nameTa": "ஸ்க்ரூ டிரைவர் டூல் செட்",
+    "category": "Hardware",
+    "unit": "1 kit",
+    "image": "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=600&q=80",
+    "description": "8-in-1 magnetic interchangeable tip tool for household electronics and appliances.",
+    "descriptionTa": "வீட்டு உபயோகத்திற்கான 8-இன்-1 ஸ்க்ரூ டிரைவர் செட்."
+  },
+  {
+    "id": "prod-24",
+    "name": "Teflon Thread Seal Plumber Tape (Pack of 3)",
+    "nameTa": "பிளம்பிங் டெப்லான் டேப் (3 எண்ணிக்கை)",
+    "category": "Hardware",
+    "unit": "Pack of 3",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80",
+    "description": "Waterproof thread seal tape for leaking pipe taps and shower joints.",
+    "descriptionTa": "குழாய் கசிவை தடுக்கும் வாட்டர்ப்ரூப் டெப்லான் டேப்."
+  },
+  {
+    "id": "prod-25",
+    "name": "Heavy Duty Steel Claw Hammer (500g)",
+    "nameTa": "இரும்பு சுத்தியல் (500 கிராம்)",
+    "category": "Hardware",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
+    "description": "Drop forged solid steel hammer with shock-absorbing non-slip rubber grip.",
+    "descriptionTa": "உறுதியான பிடியுடன் கூடிய தரமான இரும்பு சுத்தியல்."
+  },
+  {
+    "id": "prod-26",
+    "name": "Stanley Steel Measuring Tape (5m / 16ft)",
+    "nameTa": "அளவை டேப் (5 மீட்டர்)",
+    "category": "Hardware",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80",
+    "description": "Self-locking retractable measuring tape with metric and imperial units.",
+    "descriptionTa": "வீடு மற்றும் பணிகளுக்கான 5 மீட்டர் அளவு டேப்."
+  },
+  {
+    "id": "prod-27",
+    "name": "Asian Paints TruCare Wall Putty (1kg)",
+    "nameTa": "ஏசியன் பெயிண்ட்ஸ் சுவர் புட்டி (1 கிலோ)",
+    "category": "Hardware",
+    "unit": "1 kg",
+    "image": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80",
+    "description": "White cement based wall filler for crack filling and paint priming.",
+    "descriptionTa": "சுவர் விரிசல்களை சரிசெய்யும் வெள்ளை சிமெண்ட் புட்டி."
+  },
+  {
+    "id": "prod-28",
+    "name": "Dolo 650mg Paracetamol (Strip of 15)",
+    "nameTa": "டோலோ 650 மாத்திரை (15 மாத்திரைகள்)",
+    "category": "Pharmacy",
+    "unit": "15 tabs",
+    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80",
+    "description": "Antipyretic and analgesic tablet for fever relief and body ache.",
+    "descriptionTa": "காய்ச்சல் மற்றும் உடல் வலியை போக்கும் டோலோ மாத்திரை."
+  },
+  {
+    "id": "prod-29",
+    "name": "Vicks VapoRub Herbal Balm (50g)",
+    "nameTa": "விக்ஸ் வேப்பரப் பாம் (50 கிராம்)",
+    "category": "Pharmacy",
+    "unit": "50 g",
+    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80",
+    "description": "Ayurvedic formulation for relief from cough, cold and blocked nose.",
+    "descriptionTa": "சளி மற்றும் மூக்கடைப்பிற்கு உடனடி நிவாரணம் தரும் தைலம்."
+  },
+  {
+    "id": "prod-30",
+    "name": "Digital Fast Read Clinical Thermometer",
+    "nameTa": "டிஜிட்டல் தெர்மாமீட்டர்",
+    "category": "Pharmacy",
+    "unit": "1 unit",
+    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80",
+    "description": "Fast 60-second oral and underarm digital temperature sensor with fever alarm.",
+    "descriptionTa": "உடல் வெப்பநிலையை துல்லியமாக அளவிடும் டிஜிட்டல் கருவி."
+  },
+  {
+    "id": "prod-31",
+    "name": "Moov Pain Relief Fast Action Spray (50g)",
+    "nameTa": "மூவ் பெயின் ரிலீப் ஸ்ப்ரே (50 கிராம்)",
+    "category": "Pharmacy",
+    "unit": "50 g",
+    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80",
+    "description": "100% natural active spray for sprain, backache and joint pain.",
+    "descriptionTa": "முதுகு வலி மற்றும் தசை பிடிப்புகளுக்கான உடனடி நிவாரண ஸ்ப்ரே."
+  },
+  {
+    "id": "prod-32",
+    "name": "Hansaplast Bandage Strips (Box of 20)",
+    "nameTa": "ஹன்சாபிளாஸ்ட் பேண்டேஜ் (20 எண்ணிக்கை)",
+    "category": "Pharmacy",
+    "unit": "Box of 20",
+    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80",
+    "description": "Antiseptic medicated wash-proof wound plaster for cuts and bruises.",
+    "descriptionTa": "சிறு காயங்கள் மற்றும் சிராய்ப்புகளுக்கான பேண்டேஜ்."
+  },
+  {
+    "id": "prod-33",
+    "name": "Pure White Cotton Men's Dhoti (4 Mulam)",
+    "nameTa": "தூய பருத்தி வேஷ்டி (4 முழம்)",
+    "category": "Fashion",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80",
+    "description": "Traditional 100% cotton white dhoti with golden zari border.",
+    "descriptionTa": "தங்க ஜரிகை பார்டர் கொண்ட தூய பருத்தி வேஷ்டி."
+  },
+  {
+    "id": "prod-34",
+    "name": "Coimbatore Handloom Soft Cotton Saree",
+    "nameTa": "கோவை கைத்தறி பருத்தி சேலை",
+    "category": "Fashion",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80",
+    "description": "Authentic local handloom cotton saree with temple border design.",
+    "descriptionTa": "கோவில் பார்டர் வடிவம் கொண்ட கைத்தறி காட்டன் சேலை."
+  },
+  {
+    "id": "prod-35",
+    "name": "Men's Combed Cotton White Vests (Pack of 2)",
+    "nameTa": "பருத்தி பனியன் (2 எண்ணிக்கை)",
+    "category": "Fashion",
+    "unit": "Pack of 2",
+    "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80",
+    "description": "Breathable ribbed 100% combed cotton comfort innerwear.",
+    "descriptionTa": "மென்மையான 100% பருத்தி உள்ளாடைகள்."
+  },
+  {
+    "id": "prod-36",
+    "name": "Traditional Cotton Bath Towel / Thundu",
+    "nameTa": "பாரம்பரிய பருத்தி துண்டு",
+    "category": "Fashion",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80",
+    "description": "Quick-drying honeycomb woven South Indian bath towel.",
+    "descriptionTa": "விரைவில் காயும் பாரம்பரிய காட்டன் துண்டு."
+  },
+  {
+    "id": "prod-37",
+    "name": "Natural Pollachi Coconut Palm Broom",
+    "nameTa": "பொள்ளாச்சி தென்னந்தீக்குச்சி விளக்குமாறு",
+    "category": "Home needs",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1584483766114-2cea6facdf57?auto=format&fit=crop&w=600&q=80",
+    "description": "Sturdy handmade outdoor yard broom crafted from dried coconut leaf ribs.",
+    "descriptionTa": "முற்றத்தை பெருக்க உதவும் கைவினை தென்னை விளக்குமாறு."
+  },
+  {
+    "id": "prod-38",
+    "name": "Heavy Stainless Steel Dish Scrubbers (Pack of 3)",
+    "nameTa": "ஸ்டீல் ஸ்க்ரப்பர் (3 எண்ணிக்கை)",
+    "category": "Home needs",
+    "unit": "Pack of 3",
+    "image": "https://images.unsplash.com/photo-1585670270608-b4be4fb36f01?auto=format&fit=crop&w=600&q=80",
+    "description": "Rust-free spiral steel wool scrub pads for tough kitchen utensils.",
+    "descriptionTa": "பாத்திரங்களை எளிதாக சுத்தம் செய்ய உதவும் துருப்பிடிக்காத ஸ்டீல் ஸ்க்ரப்பர்."
+  },
+  {
+    "id": "prod-39",
+    "name": "Floor Cleaner & Disinfectant Pine (1L)",
+    "nameTa": "தரை சுத்தம் செய்யும் திரவம் (1 லிட்டர்)",
+    "category": "Home needs",
+    "unit": "1 Litre",
+    "image": "https://images.unsplash.com/photo-1585670270608-b4be4fb36f01?auto=format&fit=crop&w=600&q=80",
+    "description": "Fragrant germ-kill floor disinfectant suitable for tile and mosaic flooring.",
+    "descriptionTa": "நறுமணமிக்க மற்றும் கிருமிநாசினி தரை திரவம்."
+  },
+  {
+    "id": "prod-40",
+    "name": "Handcrafted Clay Curd & Cooking Pot",
+    "nameTa": "கைவினை மண் சட்டி",
+    "category": "Home needs",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80",
+    "description": "Natural earthenware pot for thick curd setting and flavorful fish curry.",
+    "descriptionTa": "சுவையான சமையலுக்கான பாரம்பரிய இயற்கை மண் சட்டி."
+  },
+  {
+    "id": "prod-41",
+    "name": "Sona Masoori Raw Rice (1kg)",
+    "nameTa": "சோனா மசூரி பச்சரிசி (1 கிலோ)",
+    "category": "Grocery",
+    "unit": "1 kg",
+    "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80",
+    "description": "Lightweight aromatic raw rice, great for daily meals and sweet pongal.",
+    "descriptionTa": "தினசரி சமையல் மற்றும் பொங்கலுக்கு ஏற்ற சோனா மசூரி பச்சரிசி."
+  },
+  {
+    "id": "prod-42",
+    "name": "Traditional Brass Puja Kuthu Vilakku (8 inch)",
+    "nameTa": "பித்தளை குத்து விளக்கு (8 அங்குலம்)",
+    "category": "Home needs",
+    "unit": "1 pc",
+    "image": "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80",
+    "description": "Solid polished brass diya lamp for home auspicious prayer.",
+    "descriptionTa": "பூஜை அறைக்கான பாரம்பரிய பித்தளை குத்து விளக்கு."
+  }
+]

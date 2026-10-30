@@ -1,0 +1,50 @@
+[
+  {
+    "id": "pollachi",
+    "name": "Pollachi Central",
+    "nameTa": "பொள்ளாச்சி மையம்",
+    "area": "Bus Stand / Bazaar",
+    "lat": 10.6586,
+    "lng": 77.0084
+  },
+  {
+    "id": "mahalingapuram",
+    "name": "Mahalingapuram, Pollachi",
+    "nameTa": "மகாலிங்கபுரம், பொள்ளாச்சி",
+    "area": "Mahalingapuram Roundabout",
+    "lat": 10.6670,
+    "lng": 77.0220
+  },
+  {
+    "id": "kinathukadavu",
+    "name": "Kinathukadavu",
+    "nameTa": "கிணத்துக்கடவு",
+    "area": "Town Center",
+    "lat": 10.8200,
+    "lng": 77.0200
+  },
+  {
+    "id": "anamalai",
+    "name": "Anamalai",
+    "nameTa": "ஆனைமலை",
+    "area": "Masaniamman Temple Road",
+    "lat": 10.5833,
+    "lng": 76.9333
+  },
+  {
+    "id": "udumalpet",
+    "name": "Udumalpet",
+    "nameTa": "உடுமலைப்பேட்டை",
+    "area": "Bus Stand / Town",
+    "lat": 10.5867,
+    "lng": 77.2489
+  },
+  {
+    "id": "valparai",
+    "name": "Valparai",
+    "nameTa": "வால்பாறை",
+    "area": "Stanmore Hill",
+    "lat": 10.3267,
+    "lng": 76.9554
+  }
+]

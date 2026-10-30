@@ -14,6 +14,9 @@ export async function healthRoutes(fastify: FastifyInstance) {
 
     return {
       status: 'healthy',
+      trlLevel: 3,
+      trl: 'TRL 3',
+      trlStatus: 'TRL 3 - Analytical and experimental critical function proof of concept',
       database: dbStatus,
       uptime: process.uptime(),
       timestamp: new Date().toISOString(),

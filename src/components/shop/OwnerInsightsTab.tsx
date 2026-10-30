@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Shop, Product, Offer } from '../../types';
 import { ForecastPoint, ProductPair } from '../../types/ml';
 import { formatCurrency } from '../../lib/format';
-import { mockMLService } from '../../ml-sim/mockMLService';
+import { activeMLService as mockMLService } from '../../ml-sim/httpMLService';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import {

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../api';
 import { Shop, Product, Offer, Review } from '../types';
 import { CrowdSnapshot } from '../types/ml';
-import { mockMLService } from '../ml-sim/mockMLService';
+import { activeMLService as mockMLService } from '../ml-sim/httpMLService';
 import { useCartStore } from '../store/cart';
 import { useLocationStore } from '../store/location';
 import { useLangStore } from '../store/lang';

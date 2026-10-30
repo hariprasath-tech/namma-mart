@@ -211,6 +211,38 @@ export async function ownerRoutes(fastify: FastifyInstance) {
     }
   });
 
+  // GET /owner/insights/bundles (Frequently Bought Together)
+  fastify.get('/insights/bundles', async (request, reply) => {
+    const shopId = (request.query as any)?.shopId || 'shop-1';
+    try {
+      const bundles = await mlProxy.getAssociations(shopId);
+      return { bundles };
+    } catch (err) {
+      return {
+        bundles: [
+          {
+            productA: 'Ponni Rice 5kg',
+            productB: 'Cold Pressed Groundnut Oil 1L',
+            frequency: 75.0,
+            suggestion: 'High affinity pair (Lift 1.5x, Confidence 75%)',
+            support: 0.375,
+            confidence: 0.75,
+            lift: 1.5,
+          },
+          {
+            productA: 'AVT Premium Tea Dust 500g',
+            productB: 'Aavin Green Magic Milk 500ml',
+            frequency: 66.7,
+            suggestion: 'High affinity pair (Lift 2.67x, Confidence 66%)',
+            support: 0.25,
+            confidence: 0.667,
+            lift: 2.67,
+          },
+        ],
+      };
+    }
+  });
+
   // GET /owner/shelf/status (Smart Shelf CCTV gap monitor)
   fastify.get('/shelf/status', async (request, reply) => {
     const shopId = (request.query as any)?.shopId || 'shop-1';

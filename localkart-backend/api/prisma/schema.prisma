@@ -1,0 +1,438 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  phone        String     @unique
+  name         String
+  role         String     @default("customer") // customer | owner | staff | admin
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  orders       Order[]
+  cart         Cart?
+  reviews      Review[]
+  holds        Hold[]
+  priceWatches PriceWatch[]
+  requests     ItemRequest[]
+}
+
+model Shop {
+  id           String        @id @default(uuid())
+  name         String
+  shortName    String        // Max 16 chars for map pill
+  nameTa       String?
+  area         String
+  address      String
+  phone        String
+  lat          Float
+  lng          Float
+  rating       Float         @default(4.5)
+  reviewCount  Int           @default(0)
+  openNow      Boolean       @default(true)
+  hours        String        @default("8:00 AM - 9:30 PM")
+  delivery     Boolean       @default(true)
+  pickup       Boolean       @default(true)
+  categories   String        // Comma-separated or JSON string
+  bannerColor  String?       @default("#0E3B2C")
+  type         String        @default("small") // small | department
+  verified     Boolean       @default(true)
+  avgReplyMins Int           @default(15)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  offers       Offer[]
+  stockItems   StockItem[]
+  movements    StockMovement[]
+  expenses     Expense[]
+  khata        KhataCustomer[]
+  cameras      Camera[]
+  orders       Order[]
+  reviews      Review[]
+  crowdSamples CrowdSample[]
+  zoneSamples  ZoneSample[]
+  groupOrders  GroupOrder[]
+}
+
+model Product {
+  id            String      @id @default(uuid())
+  name          String
+  nameTa        String?
+  category      String
+  unit          String
+  image         String
+  description   String
+  descriptionTa String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  offers        Offer[]
+  stockItems    StockItem[]
+  movements     StockMovement[]
+  listItems     ShoppingListItem[]
+}
+
+model Offer {
+  id              String      @id @default(uuid())
+  productId       String
+  shopId          String
+  price           Int         // In Paise (e.g. ₹52 = 5200)
+  mrp             Int?        // In Paise
+  stock           Int         @default(10)
+  deliveryEstMins Int?        @default(25)
+  pickupEstMins   Int?        @default(10)
+  source          String      @default("owner") // owner | camera
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  product         Product     @relation(fields: [productId], references: [id])
+  shop            Shop        @relation(fields: [shopId], references: [id])
+  cartItems       CartItem[]
+  orderItems      OrderItem[]
+  holds           Hold[]
+
+  @@unique([productId, shopId])
+}
+
+model StockItem {
+  id           String      @id @default(uuid())
+  productId    String
+  shopId       String
+  qty          Int         @default(0)
+  unit         String
+  costPrice    Int         // Paise
+  sellPrice    Int         // Paise
+  reorderLevel Int         @default(5)
+  expiry       DateTime?
+  supplierId   String?
+  source       String      @default("owner") // owner | camera
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  product      Product     @relation(fields: [productId], references: [id])
+  shop         Shop        @relation(fields: [shopId], references: [id])
+  supplier     Supplier?   @relation(fields: [supplierId], references: [id])
+}
+
+model StockMovement {
+  id          String      @id @default(uuid())
+  shopId      String
+  productId   String
+  productName String
+  type        String      // sale | purchase | adjust | wastage
+  qty         Int         // Signed (+ for addition, - for depletion)
+  note        String?
+  at          DateTime    @default(now())
+
+  shop        Shop        @relation(fields: [shopId], references: [id])
+  product     Product     @relation(fields: [productId], references: [id])
+}
+
+model Supplier {
+  id         String      @id @default(uuid())
+  name       String
+  phone      String
+  itemsJson  String      // Stored JSON array of product names
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  stockItems StockItem[]
+}
+
+model Cart {
+  id        String      @id @default(uuid())
+  userId    String      @unique
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  user      User        @relation(fields: [userId], references: [id])
+  items     CartItem[]
+}
+
+model CartItem {
+  id        String      @id @default(uuid())
+  cartId    String
+  offerId   String
+  qty       Int         @default(1)
+
+  cart      Cart        @relation(fields: [cartId], references: [id])
+  offer     Offer       @relation(fields: [offerId], references: [id])
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  shopId          String
+  shopName        String
+  userId          String?
+  customerName    String
+  customerPhone   String
+  deliveryAddress String?
+  mode            String      @default("delivery") // delivery | pickup
+  payment         String      @default("upi")      // upi | card | cod
+  paymentStatus   String      @default("pending")  // pending | paid
+  status          String      @default("packed")   // packed | out_for_delivery | delivered | ready_for_pickup | picked_up
+  subtotal        Int         // Paise
+  deliveryFee     Int         // Paise
+  totalAmount     Int         // Paise
+  idempotencyKey  String?     @unique
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  shop            Shop        @relation(fields: [shopId], references: [id])
+  user            User?       @relation(fields: [userId], references: [id])
+  items           OrderItem[]
+  payments        Payment[]
+}
+
+model OrderItem {
+  id        String      @id @default(uuid())
+  orderId   String
+  offerId   String
+  name      String
+  price     Int         // Paise
+  qty       Int
+  unit      String
+
+  order     Order       @relation(fields: [orderId], references: [id])
+  offer     Offer       @relation(fields: [offerId], references: [id])
+}
+
+model Payment {
+  id          String      @id @default(uuid())
+  orderId     String
+  amount      Int         // Paise
+  mode        String      // upi | card | cod
+  status      String      // pending | success | failed
+  reference   String      // Masked transaction reference
+  createdAt   DateTime    @default(now())
+
+  order       Order       @relation(fields: [orderId], references: [id])
+}
+
+model Review {
+  id          String      @id @default(uuid())
+  shopId      String
+  productId   String?
+  userId      String?
+  author      String
+  rating      Int
+  text        String
+  textTa      String?
+  createdAt   DateTime    @default(now())
+
+  shop        Shop        @relation(fields: [shopId], references: [id])
+  user        User?       @relation(fields: [userId], references: [id])
+}
+
+model Hold {
+  id          String      @id @default(uuid())
+  offerId     String
+  productId   String
+  shopId      String
+  shopName    String
+  userId      String?
+  qty         Int         @default(1)
+  expiresAt   DateTime    // 30 min from creation
+  claimed     Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+
+  offer       Offer       @relation(fields: [offerId], references: [id])
+  user        User?       @relation(fields: [userId], references: [id])
+}
+
+model ItemRequest {
+  id            String             @id @default(uuid())
+  userId        String?
+  customerName  String
+  customerPhone String?
+  text          String
+  area          String
+  createdAt     DateTime           @default(now())
+
+  user          User?              @relation(fields: [userId], references: [id])
+  replies       ItemRequestReply[]
+}
+
+model ItemRequestReply {
+  id          String      @id @default(uuid())
+  requestId   String
+  shopId      String
+  shopName    String
+  price       Int?        // Paise
+  available   Boolean     @default(true)
+  replyAt     DateTime    @default(now())
+
+  request     ItemRequest @relation(fields: [requestId], references: [id])
+}
+
+model GroupOrder {
+  id          String        @id @default(uuid())
+  shopId      String
+  shopName    String
+  area        String
+  target      Int           @default(5)
+  baseFee     Int           // Paise (e.g. 2000 = ₹20)
+  currentFee  Int           // Paise
+  expiresAt   DateTime
+  createdAt   DateTime      @default(now())
+
+  shop        Shop          @relation(fields: [shopId], references: [id])
+  members     GroupMember[]
+}
+
+model GroupMember {
+  id           String      @id @default(uuid())
+  groupOrderId String
+  userId       String?
+  name         String
+  joinedAt     DateTime    @default(now())
+
+  groupOrder   GroupOrder  @relation(fields: [groupOrderId], references: [id])
+}
+
+model ShoppingList {
+  id          String             @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime           @default(now())
+
+  items       ShoppingListItem[]
+}
+
+model ShoppingListItem {
+  id        String        @id @default(uuid())
+  listId    String
+  productId String
+  qty       Int           @default(1)
+
+  list      ShoppingList  @relation(fields: [listId], references: [id])
+  product   Product       @relation(fields: [productId], references: [id])
+}
+
+model PriceWatch {
+  id          String      @id @default(uuid())
+  userId      String
+  productId   String
+  targetPrice Int?        // Paise
+  createdAt   DateTime    @default(now())
+
+  user        User        @relation(fields: [userId], references: [id])
+}
+
+model Expense {
+  id        String      @id @default(uuid())
+  shopId    String
+  amount    Int         // Paise
+  category  String      // stock purchase | rent | electricity | salary | transport | repairs | packaging | other
+  mode      String      // cash | upi | card
+  date      DateTime
+  note      String?
+  createdAt DateTime    @default(now())
+
+  shop      Shop        @relation(fields: [shopId], references: [id])
+}
+
+model KhataCustomer {
+  id        String        @id @default(uuid())
+  shopId    String
+  name      String
+  phone     String?
+  createdAt DateTime      @default(now())
+
+  shop      Shop          @relation(fields: [shopId], references: [id])
+  entries   KhataEntry[]
+}
+
+model KhataEntry {
+  id          String        @id @default(uuid())
+  customerId  String
+  type        String        // credit | payment
+  amount      Int           // Paise
+  date        DateTime
+  note        String?
+  createdAt   DateTime      @default(now())
+
+  customer    KhataCustomer @relation(fields: [customerId], references: [id])
+}
+
+model Camera {
+  id          String          @id @default(uuid())
+  shopId      String
+  name        String
+  zoneId      String
+  status      String          @default("online")
+  lastFrameAt DateTime        @default(now())
+  createdAt   DateTime        @default(now())
+
+  shop        Shop            @relation(fields: [shopId], references: [id])
+  snapshots   ShelfSnapshot[]
+}
+
+model ShelfSnapshot {
+  id          String      @id @default(uuid())
+  cameraId    String
+  frameHash   String      // SHA-256 hash of frame (zero raw images stored)
+  boxesJson   String      // Detected bounding boxes JSON
+  gapCount    Int         @default(0)
+  capturedAt  DateTime    @default(now())
+
+  camera      Camera      @relation(fields: [cameraId], references: [id])
+  gaps        ShelfGap[]
+}
+
+model ShelfGap {
+  id          String        @id @default(uuid())
+  snapshotId  String
+  slot        String
+  productId   String
+  missing     Int
+
+  snapshot    ShelfSnapshot @relation(fields: [snapshotId], references: [id])
+}
+
+model CrowdSample {
+  id         String      @id @default(uuid())
+  shopId     String
+  at         DateTime    @default(now())
+  peopleNow  Int
+  entries    Int         @default(0)
+  exits      Int         @default(0)
+
+  shop       Shop        @relation(fields: [shopId], references: [id])
+}
+
+model ZoneSample {
+  id         String      @id @default(uuid())
+  shopId     String
+  zoneId     String
+  at         DateTime    @default(now())
+  count      Int
+  dwellMins  Float       @default(0.0)
+
+  shop       Shop        @relation(fields: [shopId], references: [id])
+}
+
+model SearchLog {
+  id          String      @id @default(uuid())
+  query       String
+  area        String?
+  resultCount Int
+  zeroStock   Boolean     @default(false)
+  at          DateTime    @default(now())
+}
+
+model ModelRun {
+  id          String      @id @default(uuid())
+  name        String      // e.g. shelf-yolo, lgbm-forecast, fp-growth-assoc
+  version     String
+  datasetName String
+  metricsJson String      // Accuracy, MAE, Coverage, Support
+  synthetic   Boolean     @default(true)
+  startedAt   DateTime    @default(now())
+}

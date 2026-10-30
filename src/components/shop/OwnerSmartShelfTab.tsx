@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Shop, Product, Offer } from '../../types';
 import { ShelfStatus, ShelfGap } from '../../types/ml';
-import { mockMLService } from '../../ml-sim/mockMLService';
+import { activeMLService as mockMLService } from '../../ml-sim/httpMLService';
 import { formatCurrency } from '../../lib/format';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';

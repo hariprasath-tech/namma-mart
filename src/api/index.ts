@@ -23,7 +23,7 @@ import initialExpenses from '../data/expenses.json';
 import initialKhata from '../data/khata.json';
 import initialSuppliers from '../data/suppliers.json';
 import initialRequests from '../data/requests.json';
-import { mockMLService } from '../ml-sim/mockMLService';
+import { activeMLService } from '../ml-sim/httpMLService';
 
 // Local storage keys
 const STORAGE_SHOPS_KEY = 'localkart_shops';
@@ -408,5 +408,5 @@ export const api = {
   },
 
   // ML Service
-  ml: mockMLService,
+  ml: activeMLService,
 };

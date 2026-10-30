@@ -1,0 +1,28 @@
+version: 1.0
+datasets:
+  sku-110k:
+    name: "SKU-110K (Dense Retail Object Detection)"
+    url: "https://github.com/eg4000/SKU110K_CVPR19"
+    license: "CC BY-NC-SA 4.0 (Research Use Only)"
+    synthetic: false
+    task: "Dense item detection on grocery shelves"
+
+  coco-person:
+    name: "COCO 2017 Validation (Person Class Subset)"
+    url: "http://cocodataset.org"
+    license: "CC BY 4.0"
+    synthetic: false
+    task: "Person detection & crowd density"
+
+  pollachi-sales-6m:
+    name: "Pollachi 6-Month Hyperlocal Sales History"
+    generated_by: "api/prisma/seed.ts"
+    seed: 42
+    synthetic: true
+    task: "Demand forecasting (7-day ahead)"
+
+  pollachi-baskets:
+    name: "Pollachi Supermarket Market Baskets"
+    generated_by: "api/prisma/seed.ts"
+    synthetic: true
+    task: "Market basket analysis & product association rules"

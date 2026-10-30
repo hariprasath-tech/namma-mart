@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LocalKart ML Service Contract Schemas",
+  "definitions": {
+    "ModelMeta": {
+      "type": "object",
+      "properties": {
+        "model": { "type": "string" },
+        "version": { "type": "string" },
+        "source": { "type": "string", "enum": ["pretrained", "fine-tuned", "synthetic", "baseline"] },
+        "generatedAt": { "type": "string" },
+        "stale": { "type": "boolean" }
+      },
+      "required": ["model", "version", "source"]
+    },
+    "BoundingBox": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "qty": { "type": "integer", "minimum": 0 },
+        "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "bbox": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 4,
+          "maxItems": 4
+        }
+      },
+      "required": ["label", "qty", "confidence", "bbox"]
+    },
+    "ShelfGap": {
+      "type": "object",
+      "properties": {
+        "slot": { "type": "string" },
+        "productId": { "type": "string" },
+        "missing": { "type": "integer", "minimum": 1 }
+      },
+      "required": ["slot", "productId", "missing"]
+    },
+    "ShelfStatus": {
+      "type": "object",
+      "properties": {
+        "cameraId": { "type": "string" },
+        "capturedAt": { "type": "string" },
+        "boxes": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/BoundingBox" }
+        },
+        "gaps": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ShelfGap" }
+        },
+        "meta": { "$ref": "#/definitions/ModelMeta" }
+      },
+      "required": ["cameraId", "capturedAt", "boxes", "gaps"]
+    },
+    "QueueStatus": {
+      "type": "object",
+      "properties": {
+        "counterId": { "type": "string" },
+        "length": { "type": "integer", "minimum": 0 },
+        "waitMins": { "type": "number", "minimum": 0.0 }
+      },
+      "required": ["counterId", "length", "waitMins"]
+    },
+    "CrowdSnapshot": {
+      "type": "object",
+      "properties": {
+        "peopleNow": { "type": "integer", "minimum": 0 },
+        "level": { "type": "string", "enum": ["quiet", "moderate", "busy"] },
+        "queues": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/QueueStatus" }
+        },
+        "meta": { "$ref": "#/definitions/ModelMeta" }
+      },
+      "required": ["peopleNow", "level", "queues"]
+    },
+    "ZoneDensity": {
+      "type": "object",
+      "properties": {
+        "zoneId": { "type": "string" },
+        "count": { "type": "integer", "minimum": 0 },
+        "dwellMins": { "type": "number", "minimum": 0.0 }
+      },
+      "required": ["zoneId", "count", "dwellMins"]
+    },
+    "ForecastPoint": {
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "expected": { "type": "number", "minimum": 0.0 },
+        "low": { "type": "number", "minimum": 0.0 },
+        "high": { "type": "number", "minimum": 0.0 }
+      },
+      "required": ["date", "expected", "low", "high"]
+    },
+    "ProductPair": {
+      "type": "object",
+      "properties": {
+        "productA": { "type": "string" },
+        "productB": { "type": "string" },
+        "frequency": { "type": "number" },
+        "suggestion": { "type": "string" },
+        "support": { "type": "number" },
+        "confidence": { "type": "number" },
+        "lift": { "type": "number" }
+      },
+      "required": ["productA", "productB", "frequency", "suggestion"]
+    }
+  }
+}

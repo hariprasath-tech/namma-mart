@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: localkart-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: localkart
+      POSTGRES_PASSWORD: localkart_pass
+      POSTGRES_DB: localkart_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U localkart -d localkart_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: localkart-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: localkart-api
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      HOST: 0.0.0.0
+      DATABASE_URL: "postgresql://localkart:localkart_pass@postgres:5432/localkart_db"
+      REDIS_URL: "redis://redis:6379"
+      JWT_SECRET: "localkart_super_secret_jwt_key_pollachi_2026_tr3"
+      JWT_REFRESH_SECRET: "localkart_super_secret_refresh_key_pollachi_2026_tr3"
+      ML_SERVICE_URL: "http://ml:8000/ml/v1"
+      SEED: "localkart_pollachi_v2"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      ml:
+        condition: service_started
+
+  ml:
+    build:
+      context: ./ml
+      dockerfile: Dockerfile
+    container_name: localkart-ml
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: 8000
+      HOST: 0.0.0.0
+      SEED: "localkart_pollachi_v2"
+    volumes:
+      - ./ml/models:/app/models
+      - ./ml/reports:/app/reports
+      - ./ml/samples:/app/samples
+
+volumes:
+  postgres_data:
+  redis_data:

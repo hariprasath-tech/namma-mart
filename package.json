@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "@tensorflow-models/coco-ssd": "^2.2.3",
+    "@tensorflow/tfjs": "^4.22.0",
     "clsx": "^2.1.1",
     "framer-motion": "^14.9.0",
     "i18next": "^26.5.12",

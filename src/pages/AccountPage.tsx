@@ -18,6 +18,10 @@ import {
   LogOut,
   Edit2,
   Check,
+  ShieldCheck,
+  CheckCircle2,
+  AlertTriangle,
+  Cpu,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -51,15 +55,20 @@ export const AccountPage: React.FC = () => {
       </h1>
 
       {/* User Profile Card */}
-      <div className="bg-[#0E3B2C] text-white rounded-2xl p-6 shadow-md border border-[#1F6B4A] flex items-center justify-between">
+      <div className="bg-[#0E3B2C] text-white rounded-2xl p-6 shadow-md border border-[#1F6B4A] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center text-[#FFB400] font-display font-extrabold text-2xl">
             {user?.name?.[0] || 'M'}
           </div>
           <div>
-            <h2 className="font-display font-bold text-xl sm:text-2xl">
-              {user?.name || 'Murugan K.'}
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 className="font-display font-bold text-xl sm:text-2xl">
+                {user?.name || 'Murugan K.'}
+              </h2>
+              <Badge variant="grove" size="sm" className="bg-[#1F6B4A] text-white border border-white/20">
+                Pollachi Resident
+              </Badge>
+            </div>
             <p className="text-xs sm:text-sm text-white/80">
               {user?.phone || '+91 98421 90112'}
             </p>
@@ -67,9 +76,9 @@ export const AccountPage: React.FC = () => {
         </div>
 
         <Link to="/shop">
-          <Button variant="marigold" size="sm" className="hidden sm:inline-flex items-center gap-1.5">
+          <Button variant="marigold" size="sm" className="inline-flex items-center gap-1.5 font-bold">
             <Store className="w-4 h-4" />
-            <span>Switch to Shop Owner</span>
+            <span>Switch to Shop Owner Portal</span>
           </Button>
         </Link>
       </div>
@@ -109,7 +118,7 @@ export const AccountPage: React.FC = () => {
               rows={2}
               value={tempAddress}
               onChange={(e) => setTempAddress(e.target.value)}
-              className="w-full p-2.5 bg-[#F7F9F4] border border-[#BDCBB8] rounded-xl text-xs sm:text-sm focus:outline-[#0E3B2C]"
+              className="w-full text-xs sm:text-sm text-[#14201B] bg-[#F7F9F4] p-3 rounded-xl border border-[#0E3B2C] focus:outline-hidden"
             />
           )}
         </div>
@@ -118,7 +127,7 @@ export const AccountPage: React.FC = () => {
         <div className="bg-white rounded-2xl p-5 border border-[#DDE5D9] shadow-xs space-y-3">
           <div className="flex items-center gap-2 text-[#0E3B2C] font-bold text-base">
             <Globe className="w-4 h-4 text-[#1F6B4A]" />
-            <span>Language / மொழி</span>
+            <span>App Language / பயன்பாட்டு மொழி</span>
           </div>
 
           <div className="grid grid-cols-2 gap-3 pt-1">
@@ -196,15 +205,70 @@ export const AccountPage: React.FC = () => {
         )}
       </div>
 
-      {/* Demo Data & Academic Disclosure Badge Box */}
-      <div className="bg-[#F7F9F4] rounded-2xl p-5 border border-[#DDE5D9] space-y-2">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#0E3B2C] uppercase tracking-wider">
-          <Info className="w-4 h-4 text-[#1F6B4A]" />
-          <span>Academic Project & Honest Disclosure Notice</span>
+      {/* Honest Academic Rigor & Viva Disclosure (TRL 3) */}
+      <div className="bg-white rounded-2xl p-6 border border-[#DDE5D9] shadow-xs space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DDE5D9] pb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-[#0E3B2C] text-[#FFB400] flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="font-display font-bold text-lg text-[#14201B]">
+                Academic Rigor & Honesty Disclosure (Viva Panel)
+              </h2>
+              <span className="text-xs text-[#4E6057]">
+                Project Status: <strong>Technology Readiness Level 3 (TRL 3)</strong> — Experimental Proof of Concept
+              </span>
+            </div>
+          </div>
+
+          <Badge variant="subtle" size="sm" className="bg-[#EEF3EA] text-[#0E3B2C] font-bold">
+            TRL 3 Certified
+          </Badge>
         </div>
+
         <p className="text-xs text-[#4E6057] leading-relaxed">
-          LocalKart is a Design Thinking and Innovation Project (TRL 3 Prototype) developed at Sri Eshwar College of Engineering, Computer Science and Engineering Department (Batch 2025–2029). All shop records, prices, distances, and reviews are simulated sample data for Pollachi town. No real currency is transferred.
+          LocalKart v2 is an experimental Design Thinking capstone prototype built for Pollachi, Tamil Nadu. To ensure absolute academic integrity and transparency during evaluation, the table below specifies exactly which aspects of this prototype are real and which components operate under a deterministic simulation engine.
         </p>
+
+        {/* Real vs Simulated Specification Table */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Column 1: What is Real */}
+          <div className="p-4 rounded-xl bg-[#EEF3EA]/70 border border-[#BDCBB8] space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#0E3B2C] uppercase">
+              <CheckCircle2 className="w-4 h-4 text-[#1F6B4A]" />
+              <span>What is 100% Real</span>
+            </div>
+            <ul className="text-xs text-[#14201B] space-y-1.5 list-disc list-inside">
+              <li><strong>UI Architecture:</strong> React 19, TypeScript, TailwindCSS v4, Leaflet map geometry.</li>
+              <li><strong>Geographic Calculations:</strong> Haversine mathematical spherical distance formula using actual GPS coordinates for Pollachi, Kinathukadavu, Anamalai, and Udumalpet.</li>
+              <li><strong>Smart Basket Optimizer:</strong> Pure function computing single vs split store costs with delivery fee comparisons.</li>
+              <li><strong>State & Mutations:</strong> Reactive Zustand stores with full LocalStorage mutation persistence.</li>
+              <li><strong>Speech Recognition:</strong> Native browser Web Speech API for Tamil (<code className="bg-white px-1 py-0.5 rounded">ta-IN</code>) and English voice input.</li>
+              <li><strong>Unit Test Suite:</strong> Vitest covering math, pricing, P&L, day closing cash diff, and classifier determinism.</li>
+            </ul>
+          </div>
+
+          {/* Column 2: What is Simulated */}
+          <div className="p-4 rounded-xl bg-[#FFFBEB]/70 border border-[#FFB400]/50 space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#854D0E] uppercase">
+              <Cpu className="w-4 h-4 text-[#FFB400]" />
+              <span>What is Simulated (Seed: localkart_pollachi_v2)</span>
+            </div>
+            <ul className="text-xs text-[#14201B] space-y-1.5 list-disc list-inside">
+              <li><strong>Smart Shelf Vision:</strong> Edge CCTV gap detection and bounding boxes are generated by a deterministic Mulberry32 seed engine (carrying the <code className="bg-white px-1 py-0.5 rounded">Simulated demo</code> chip).</li>
+              <li><strong>Crowd & Queues:</strong> Store footfall counts and billing line estimations follow realistic diurnal retail curves.</li>
+              <li><strong>7-Day Demand Forecast:</strong> Area charts with confidence intervals simulate future machine learning inferences.</li>
+              <li><strong>Financial Transactions:</strong> Mock UPI / Cash on Delivery payments without real bank settlement gateways.</li>
+              <li><strong>Delivery Logistics:</strong> Simulated rider tracking without real GPS hardware units.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="p-3 bg-[#F7F9F4] rounded-xl border border-[#DDE5D9] text-[11px] text-[#4E6057] flex items-center justify-between">
+          <span>Department of Computer Science & Engineering · Sri Eshwar College of Engineering</span>
+          <span className="font-semibold text-[#0E3B2C]">LocalKart v2 — Pollachi, TN</span>
+        </div>
       </div>
     </div>
   );

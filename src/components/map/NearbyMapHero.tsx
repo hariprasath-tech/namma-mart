@@ -22,9 +22,10 @@ import { useLangStore } from '../../store/lang';
 import { Shop, Product, Offer } from '../../types';
 import { calculateDistanceKm, formatDistance } from '../../lib/haversine';
 import { formatCurrency, formatEstTime } from '../../lib/format';
+import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
-import { Link } from 'react-router-dom';
+import { VoiceSearchButton } from '../common/VoiceSearchButton';
 import { useTranslation } from 'react-i18next';
 
 interface NearbyMapHeroProps {
@@ -253,17 +254,20 @@ export const NearbyMapHero: React.FC<NearbyMapHeroProps> = ({
               value={searchQuery}
               onChange={(e) => handleQueryChange(e.target.value)}
               placeholder={t('home.searchPlaceholder')}
-              className="w-full pl-12 pr-10 py-3.5 bg-[#F7F9F4] border-2 border-[#DDE5D9] focus:border-[#0E3B2C] focus:bg-white rounded-xl text-base sm:text-lg text-[#14201B] placeholder:text-[#4E6057]/70 font-medium transition-all shadow-xs"
+              className="w-full pl-12 pr-20 py-3.5 bg-[#F7F9F4] border-2 border-[#DDE5D9] focus:border-[#0E3B2C] focus:bg-white rounded-xl text-base sm:text-lg text-[#14201B] placeholder:text-[#4E6057]/70 font-medium transition-all shadow-xs"
             />
-            {searchQuery && (
-              <button
-                onClick={() => handleQueryChange('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#4E6057] hover:text-[#14201B]"
-                aria-label="Clear search"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+              {searchQuery && (
+                <button
+                  onClick={() => handleQueryChange('')}
+                  className="p-1 text-[#4E6057] hover:text-[#14201B]"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+              <VoiceSearchButton onTranscript={handleQueryChange} />
+            </div>
           </div>
 
           {/* Quick suggestions */}

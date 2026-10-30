@@ -21,6 +21,7 @@ import {
   ArrowRight,
   X,
 } from 'lucide-react';
+import { VoiceSearchButton } from '../components/common/VoiceSearchButton';
 import { useTranslation } from 'react-i18next';
 
 export const SearchPage: React.FC = () => {
@@ -166,11 +167,19 @@ export const SearchPage: React.FC = () => {
                   setQuery('');
                   setSearchParams({});
                 }}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#4E6057]"
+                className="absolute right-12 top-1/2 -translate-y-1/2 p-1 text-[#4E6057]"
               >
                 <X className="w-4 h-4" />
               </button>
             )}
+            <div className="absolute right-2 top-1/2 -translate-y-1/2">
+              <VoiceSearchButton
+                onTranscript={(text) => {
+                  setQuery(text);
+                  setSearchParams({ q: text });
+                }}
+              />
+            </div>
           </div>
 
           <Button

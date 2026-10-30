@@ -15,6 +15,7 @@ import { OrdersListPage } from './pages/OrdersListPage';
 import { OrderTrackingPage } from './pages/OrderTrackingPage';
 import { ShopPage } from './pages/ShopPage';
 import { ShopDashboardPage } from './pages/ShopDashboardPage';
+import { PersonCountingDemoPage } from './pages/PersonCountingDemoPage';
 import { AccountPage } from './pages/AccountPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { OfflinePage } from './pages/OfflinePage';
@@ -98,6 +99,7 @@ export function App() {
           <Route path="/orders" element={<OrdersListPage />} />
           <Route path="/orders/:orderId" element={<OrderTrackingPage />} />
           <Route path="/shop" element={<ShopDashboardPage />} />
+          <Route path="/shop/crowd/demo" element={<PersonCountingDemoPage />} />
           <Route path="/shop/:shopId" element={<ShopPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="*" element={<NotFoundPage />} />

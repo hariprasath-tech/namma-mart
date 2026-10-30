@@ -1,132 +1,118 @@
-# LocalKart (நம்ம Mart)
+# LocalKart v2 (நம்ம Mart)
 
 **Support Local. Shop Meaningful.**  
-*Hyperlocal shopping app for Pollachi and nearby towns in Tamil Nadu.*
+*Hyperlocal shopping app and store intelligence platform for Pollachi, Tamil Nadu.*
 
 ---
 
-## 🌾 Overview
+## 🌾 0. Goal of v2
 
-LocalKart is a hyperlocal commerce platform engineered for small-town markets in Western Tamil Nadu (Pollachi, Kinathukadavu, Anamalai, Udumalpet, Valparai). It enables customers to search for everyday items and instantly view nearby stores with **price, rating, and distance side by side**, helping users decide *which shop, right now* in under 10 seconds.
+LocalKart v1 solved *"which nearby shop has it, cheapest, closest"*. **LocalKart v2** transforms the system into a complete **Design Thinking Final Capstone Project** solving both sides' pain points:
 
-> **Design Thinking and Innovation Project**  
-> Sri Eshwar College of Engineering (Autonomous)  
-> Department of Computer Science and Engineering, Batch 2025 to 2029  
-> **Mentor:** Dr. S. Sampathkumar, M.Tech., (Ph.D), Head of Department, CSE (Cyber Security)  
-> **Team:** Barath M (722825104020), Devdharshan S (722825104033), Hariprasath S (722825104062)
+- **Customer pain points solved:** Wasted shopping trips, unknown stock availability, billing queues and crowd friction, unfair individual delivery fees, age and language barriers, lack of trust in unfamiliar stores.
+- **Shop owner pain points solved:** Manual stock tracking, no visibility into where money goes, customer credit (khata) chaos, lost sales from missing items (lost demand), shelf shrinkage/leakage, and billing queues in high-footfall department stores.
 
----
-
-## ⚡ The Memorable Moment: The Nearby Map Hero
-
-Replacing traditional generic marketing banners, LocalKart features an interactive **Nearby Map Hero**:
-- Full-width interactive map of Pollachi with the user's location at the centre and an 1.8 km dashed radius ring.
-- **Dynamic Price Pins:** Live price tags update reactively as you type (e.g., *"₹52 · 0.8 km"*).
-- The lowest-priced store automatically highlights in **Marigold** with a pulsing effect (`pulse-marigold`), and the closest shop is tagged with a green badge.
-- Tapping any pin pulls up a bottom sheet with the shop's offer, stock count, estimated delivery/pickup time, and direct *"Add to cart"* or *"Compare shops"* actions.
+> **Academic Rigor & Honesty Rules (TRL 3):**  
+> • All computer vision (shelf gap detection, crowd levels, queue waits, demand forecasts) operate through a deterministic seeded simulation layer (`src/ml-sim/mockMLService.ts`) with every related card carrying a **"Simulated demo"** badge.  
+> • Project is classified strictly at **Technology Readiness Level 3 (TRL 3)**.  
+> • Optional real demo: In-browser client-side person detection using pretrained TensorFlow.js COCO-SSD (`/shop/crowd/demo`), with zero video leaving the browser.
 
 ---
 
-## 🚀 Key Features
+## ⚡ 1. The Memorable Moment: Nearby Map Hero (Fixed & Anchored)
+
+Observed and resolved in v2:
+1. **Dynamic Price Pins:** Live price tags update reactively as you type (e.g. *₹48 · 0.8 km*).
+2. **Anchor Tails:** Pins use `L.divIcon` with content-sized pills (`width: max-content`), a tail pointing to the exact GPS coordinate, and a tip anchor dot.
+3. **No Clipped Text:** Slicing removed; human-chosen `shortName` (max 16 chars) used on pills, full name in bottom sheets.
+4. **Collision Avoidance:** Automatic label collision pass offsets overlapping pins with leader geometry.
+5. **Auto-fit Bounds:** `map.fitBounds(pinBounds, { padding: [56, 56] })` ensures pins and radius ring are never clipped by the viewport.
+
+---
+
+## 🚀 2. What's New in LocalKart v2
 
 ### For Customers
-- **Hyperlocal Location Selector:** Switch between Pollachi Central, Mahalingapuram, Kinathukadavu, Anamalai, Udumalpet, and Valparai, or use GPS detection.
-- **10-Second Decision Engine (`/compare`):** Side-by-side comparison table (desktop) and swipeable card deck (mobile) showing Price, Rating, Distance, Stock availability, Delivery/Pickup fulfilment, and Estimated times.
-- **Shop-Grouped Cart (`/cart`):** Intelligent multi-vendor cart grouping with visual alerts when items arrive from multiple distinct stores.
-- **Simulated Multi-Mode Checkout (`/checkout`):**
-  - Choose between **Home Delivery** (with address memory) or **In-Store Pickup** (zero delivery fee).
-  - Payment modes: **UPI QR code / ID**, **Credit/Debit Card**, and **Cash on Delivery**.
-  - Built-in simulation buttons to test payment success and failure flows.
-- **3-Stage Order Stepper (`/orders/:orderId`):** Visual tracking for *Packed* ➔ *Out for delivery* ➔ *Delivered* (or *Ready for pickup* ➔ *Picked up*). Includes interactive star rating and review submission.
-- **Bilingual Experience:** Instant English / தமிழ் switch powered by `react-i18next` with `Hind Madurai` typography.
-- **Elderly-Friendly & Accessible:** High-contrast color palette, base 16px body type, and 44px+ minimum touch targets.
+1. **Live Crowd & Billing Queue Meter:** Shows *Quiet now*, *Moderate*, *Busy* with billing wait time (~3 min).
+2. **Best Time to Visit Chart:** 24-hour hourly footfall bar chart with the current hour highlighted in Marigold.
+3. **Stock Confidence Labels:** *Live from shelf camera, 2 min ago* (simulated) vs *Updated by owner, 3 h ago*.
+4. **Reserve & Pick Up (30-Minute Hold):** Hold items for 30 minutes with zero advance payment, featuring an animated countdown ring and directions to eliminate wasted trips.
+5. **Smart Basket Optimizer:** Pure algorithm (`optimizeBasket`) comparing **cheapest single store** vs **best split across 2 stores**, accounting for delivery fees with plain explanations.
+6. **Can't Find It? Ask Nearby Shops:** Broadcast inquiry for hard-to-find items to 14+ Pollachi merchants; receive live price quotations.
+7. **Tamil Voice Search & Simple Mode:** Web Speech API microphone search (`ta-IN` / `en-IN`) and an elderly-friendly Simple Mode toggle with larger typography and 1-tap call buttons.
+8. **Neighbourhood Group Delivery:** Street delivery pool widget with falling delivery fees as more neighbors join (split from ₹20 down to ₹5).
+9. **Monthly Groceries 1-Tap Reorder:** Rebuilds cart from the cheapest local merchants in a single click.
+10. **Price Watch:** Bell icon alerts customers when an out-of-stock item returns or drops in price.
 
-### For Shop Owners (`/shop`)
-- **Today's Orders Queue:** Real-time list of customer orders with one-tap *"Mark Packed"* and *"Dispatch for Delivery"* actions.
-- **Instant Product & Stock Manager:**
-  - Big, fat `[ - ]` and `[ + ]` stock steppers for effortless inventory adjustments.
-  - In-place price editing.
-  - Automatic low-stock alerts (`< 5 units left`).
-  - Modal to add new products to the town catalog.
-  - Instant live synchronization: Merchant stock updates reflect across customer search and map pins in real time.
-- **Earnings & Sales Summary:** Estimated daily revenue and order metrics.
+### For Shop Owners (`/shop` – 10-Tab Portal)
+1. **Overview:** Daily sales count-up, cash vs UPI breakdown, busy status, and 3 smart proactive alerts.
+2. **Stock Management:** Cost price, selling price, profit margin (%), expiry classification (OK, 7-day alert, expired), fast `[ - ]` and `[ + ]` controls, barcode scanning, CSV export, and WhatsApp reorder link generator.
+3. **Money (Spend & Profit):** 10-second expense entry, animated Sales vs Expenses vs Profit Recharts, P&L summary, and Day-Closing cash difference reconciliation.
+4. **Khata (Credit Ledger):** Customer credit accounts, overdue aging (0–7, 8–30, 30+ days), and prefilled WhatsApp payment reminder generator.
+5. **Insights & Customer Demand:**
+   - **Lost Demand Ranking:** Items customers searched or requested that were not in stock (highest value card).
+   - **Frequently Bought Together:** Cross-selling combo suggestions (e.g. Rice + Toor Dal).
+   - **7-Day Demand Forecast:** Time-series area chart with confidence bounds.
+6. **Smart Shelf (CCTV Stock Monitor):** SVG-rendered camera racks, sweeping laser scanner, animated bounding boxes with confidence scores (`Ponni Rice 1kg · 8 units · 0.94`), gap detection, and Shelf vs System reconciliation table.
+7. **Crowd & Queues (Department Store Mode):** Live footfall, interactive SVG floor plan heatmap with breathing hot zones, billing queue monitor, time-slider day replay, best sellers by zone, and privacy panel.
+8. **Customer Requests:** Inbox of "Can't Find It?" inquiries with 2-tap price quotations.
+9. **Settings:** Store profile, delivery radius, edge camera RTSP endpoints, and ethics disclaimers.
+10. **Orders Queue:** Packing, dispatch, and pickup fulfillment workflows.
 
 ---
 
-## 🎨 Design System & Tokens
+## 🧪 3. 3-Minute Viva Demonstration Script
 
-Crafted to reflect Pollachi's coconut country identity (palm groves, marigold garlands, and morning market streets):
+1. **Step 1 (Hyperlocal Map & Price Pins):** Open the app in Pollachi, type `"rice"` in the search bar. Note how map pins update dynamically, cheapest turns Marigold with anchor tails, and pins never overlap.
+2. **Step 2 (Crowd & Stock Confidence):** Open *Mahalingam Mandi*. Point out the *Quiet now* badge, estimated 3-min billing wait, the 24-hour *Best Time to Visit* chart, and the *Live from shelf camera* stock confidence tag.
+3. **Step 3 (Customer Features):** Tap *Hold 30m* on Ponni Rice to demonstrate the 30-minute reservation ring. Open *Smart Basket* and toggle between *Single Store* and *Split 2 Stores* to show the algorithmic cost comparison.
+4. **Step 4 (Owner Portal – Money & P&L):** Switch to `/shop` (Shop Owner). Open the *Money* tab, record an expense in under 10 seconds, view the P&L gross margin, and show the Day-Closing expected vs counted cash difference.
+5. **Step 5 (Smart Shelf & Lost Demand):** Open the *Smart Shelf* tab. Watch the sweeping laser scan catch an empty slot on Rack-A2 (*2 packs missing*). Tap *+ Restock* to create a staff task. Switch to *Insights* to show the *Lost Demand* table.
+6. **Step 6 (Department Store Crowd Heatmap):** Switch to *Pollachi Super Centre* (Department Store) and open the *Crowd* tab. Drag the time slider from 9 AM to 7 PM to watch the floor plan heatmap breathe, and open Counter 3 upon bottleneck alert.
+7. **Step 7 (Academic Disclosure):** Open *Account > Academic Rigor & Honesty Disclosure*. Review the explicit table of Real vs Simulated features, ethics compliance ("No faces stored"), and TRL 3 certification.
+
+---
+
+## 🎨 Design System & Heat Tokens
 
 | Token | CSS Variable | Hex | Usage |
 |---|---|---|---|
 | **Palm** | `--palm` | `#0E3B2C` | Primary surfaces, app bar, headers, buttons |
-| **Grove** | `--grove` | `#1F6B4A` | Secondary buttons, success indicators, hover states |
-| **Marigold** | `--marigold` | `#FFB400` | Strictly reserved for the single #1 best deal and key CTAs |
-| **Chalk** | `--chalk` | `#F7F9F4` | Clean page canvas background |
-| **Ink** | `--ink` | `#14201B` | High-contrast body typography |
-| **Chilli** | `--chilli` | `#D63A2F` | Warnings, low-stock alerts, payment decline errors |
-
-- **Typography:** Display: *Bricolage Grotesque*; Body, UI & Tamil: *Hind Madurai*.
-
----
-
-## 🛠️ Tech Stack
-
-- **Framework:** React 18 + Vite 8 + TypeScript
-- **Styling:** Tailwind CSS v4 + Design Tokens CSS Variables
-- **Mapping:** Leaflet + `react-leaflet` + OpenStreetMap
-- **State Management:** Zustand (cart, location, auth, language) with `localStorage` persistence
-- **Localization:** `react-i18next` (English & தமிழ்)
-- **Icons & Motion:** `lucide-react`, `framer-motion`
-- **Testing:** Vitest for Haversine distance engine, comparison ranking, and cart totals
+| **Grove** | `--grove` | `#1F6B4A` | Secondary buttons, verified merchant badges |
+| **Marigold** | `--marigold` | `#FFB400` | Single #1 winning deal, best options, active CTA |
+| **Chalk** | `--chalk` | `#F7F9F4` | Clean canvas background |
+| **Ink** | `--ink` | `#14201B` | High-contrast typography |
+| **Chilli** | `--chilli` | `#D63A2F` | Out of stock, empty shelf gaps, overdue khata |
+| **Heat Quiet** | `--heat-quiet` | `#2E7D32` | Low crowd density (Green) |
+| **Heat Moderate** | `--heat-moderate` | `#FFB400` | Moderate crowd density (Yellow) |
+| **Heat Busy** | `--heat-busy` | `#D63A2F` | High crowd bottleneck (Red) |
 
 ---
 
-## 💻 Getting Started
+## 💻 Tech Stack & Verification
 
-### Prerequisites
-- Node.js 18+ and npm installed.
+- **Frontend:** React 19 + TypeScript + Vite 8
+- **Styling:** Tailwind CSS v4 + Motion tokens (`src/styles/motion.ts`)
+- **Maps:** Leaflet + `react-leaflet` + OpenStreetMap
+- **Charts:** Recharts (responsive animated Area/Bar charts) + Hand-crafted SVG Floor Plan Heatmap
+- **Edge ML Demo:** TensorFlow.js (`@tensorflow/tfjs` + `@tensorflow-models/coco-ssd`) dynamically code-split
+- **Voice & Accessibility:** Native Web Speech API (`ta-IN`, `en-IN`) + Simple Mode store
+- **Testing:** Vitest with 15 passing tests for Haversine distance, basket optimization, day-closing cash difference, P&L, and seeded random determinism.
 
-### Installation & Run
+### Build and Test Commands
 
 ```bash
 # 1. Install dependencies
 npm install
 
-# 2. Run the development server
+# 2. Run unit test suite
+npm run test
+
+# 3. Build production bundle (type checks + Vite bundle)
+npm run build
+
+# 4. Start local development server
 npm run dev
 ```
 
-Open `http://localhost:5173` in your browser.
-
-### Scripts
-
-| Command | Action |
-|---|---|
-| `npm run dev` | Starts the local development server at `http://localhost:5173` |
-| `npm run build` | Compiles TypeScript and builds production bundle |
-| `npm run test` | Runs the Vitest test suite (`core.test.ts`) |
-| `npm run preview` | Previews the compiled production build locally |
-
----
-
-## 🧪 Testing
-
-The pure calculation engines are covered by automated unit tests:
-
-```bash
-npm run test
-```
-
-Tests cover:
-1. `haversine`: Great-circle distance calculations between Pollachi coordinates and friendly meter/km formatting.
-2. `compareOffers`: Deterministic price ranking, cheapest/closest tagging, and multi-filter exclusion (closed shops, delivery availability).
-3. `cart`: Accurate subtotal arithmetic and multi-shop split dispatch delivery fee computation.
-
----
-
-## 📄 License & Academic Integrity
-
-- **Technology Readiness Level (TRL):** TRL 3 (Proof-of-Concept Prototype).
-- **Honesty Disclosure:** All shops, products, inventory numbers, prices, and reviews are simulated sample data for Pollachi town. No real currency is transferred.
-- Intended contributions to UN Sustainable Development Goals: SDG 8, SDG 9, and SDG 11.
+Open `http://localhost:5173` to explore LocalKart v2.

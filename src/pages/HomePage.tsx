@@ -10,6 +10,10 @@ import { formatCurrency } from '../lib/format';
 import { calculateDistanceKm, formatDistance } from '../lib/haversine';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
+import { SmartBasketModal } from '../components/customer/SmartBasketModal';
+import { AskShopsModal } from '../components/customer/AskShopsModal';
+import { MonthlyListModal } from '../components/customer/MonthlyListModal';
+import { GroupOrderCard } from '../components/customer/GroupOrderCard';
 import {
   Star,
   Store,
@@ -19,6 +23,11 @@ import {
   Sparkles,
   GitCompare,
   Clock,
+  Layers,
+  MessageSquare,
+  Calendar,
+  Truck,
+  ShieldCheck,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -33,6 +42,11 @@ export const HomePage: React.FC = () => {
   const [offers, setOffers] = useState<Offer[]>([]);
   const [loading, setLoading] = useState(true);
   const [addedOfferId, setAddedOfferId] = useState<string | null>(null);
+
+  // Modals state for v2 customer features
+  const [showSmartBasket, setShowSmartBasket] = useState(false);
+  const [showAskShops, setShowAskShops] = useState(false);
+  const [showMonthlyList, setShowMonthlyList] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +89,7 @@ export const HomePage: React.FC = () => {
   }).filter((d) => d.product && d.offer && d.shop);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-8 sm:space-y-10">
       {/* 1. The Memorable Moment: The Nearby Map Hero */}
       <section aria-label="Nearby Map Hero">
         <NearbyMapHero
@@ -86,7 +100,75 @@ export const HomePage: React.FC = () => {
         />
       </section>
 
-      {/* 2. "Cheapest near you" Curated Comparison Section */}
+      {/* 2. Customer v2 Action Hub: Smart Basket | Ask Nearby Shops | Monthly Groceries */}
+      <section className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+        <div
+          onClick={() => setShowSmartBasket(true)}
+          className="p-4 rounded-2xl bg-white border border-[#DDE5D9] hover:border-[#FFB400] transition-all cursor-pointer shadow-xs group flex items-center justify-between"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#FFFBEB] text-[#FFB400] flex items-center justify-center shrink-0 border border-[#FFB400]/40 group-hover:scale-105 transition-transform">
+              <Sparkles className="w-5 h-5 text-[#854D0E]" />
+            </div>
+            <div>
+              <h3 className="font-display font-bold text-sm text-[#14201B]">
+                Smart Basket
+              </h3>
+              <p className="text-[11px] text-[#4E6057]">
+                Optimize 1 store vs split 2 stores
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="w-4 h-4 text-[#4E6057] group-hover:translate-x-1 transition-transform" />
+        </div>
+
+        <div
+          onClick={() => setShowAskShops(true)}
+          className="p-4 rounded-2xl bg-white border border-[#DDE5D9] hover:border-[#0E3B2C] transition-all cursor-pointer shadow-xs group flex items-center justify-between"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#EEF3EA] text-[#0E3B2C] flex items-center justify-center shrink-0 border border-[#BDCBB8] group-hover:scale-105 transition-transform">
+              <MessageSquare className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-display font-bold text-sm text-[#14201B]">
+                Can't Find It?
+              </h3>
+              <p className="text-[11px] text-[#4E6057]">
+                Ask 14+ Pollachi shops for price
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="w-4 h-4 text-[#4E6057] group-hover:translate-x-1 transition-transform" />
+        </div>
+
+        <div
+          onClick={() => setShowMonthlyList(true)}
+          className="p-4 rounded-2xl bg-white border border-[#DDE5D9] hover:border-[#1F6B4A] transition-all cursor-pointer shadow-xs group flex items-center justify-between"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#F7F9F4] text-[#1F6B4A] flex items-center justify-center shrink-0 border border-[#DDE5D9] group-hover:scale-105 transition-transform">
+              <Calendar className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-display font-bold text-sm text-[#14201B]">
+                Monthly Groceries
+              </h3>
+              <p className="text-[11px] text-[#4E6057]">
+                1-tap rebuild from cheapest shops
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="w-4 h-4 text-[#4E6057] group-hover:translate-x-1 transition-transform" />
+        </div>
+      </section>
+
+      {/* 3. Neighbourhood Group Delivery Fee Splitting Widget */}
+      <section>
+        <GroupOrderCard />
+      </section>
+
+      {/* 4. "Cheapest near you" Curated Comparison Section */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
@@ -186,7 +268,7 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. "Popular Pollachi Shops" Section */}
+      {/* 5. "Popular Pollachi Shops" Section with Verified Badges & Crowd Levels */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
@@ -213,9 +295,16 @@ export const HomePage: React.FC = () => {
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div>
-                      <h3 className="font-display font-bold text-lg text-[#14201B] line-clamp-1">
-                        {language === 'ta' ? shop.nameTa || shop.name : shop.name}
-                      </h3>
+                      <div className="flex items-center gap-1.5">
+                        <h3 className="font-display font-bold text-lg text-[#14201B] line-clamp-1">
+                          {language === 'ta' ? shop.nameTa || shop.name : shop.name}
+                        </h3>
+                        {shop.verified && (
+                          <span title="Verified Merchant" className="text-[#1F6B4A]">
+                            ✓
+                          </span>
+                        )}
+                      </div>
                       <p className="text-xs text-[#4E6057] line-clamp-1">{shop.address}</p>
                     </div>
                     <Badge variant={shop.openNow ? 'grove' : 'subtle'} size="sm">
@@ -260,7 +349,7 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Compare Any Product Callout Banner */}
+      {/* 6. Compare Any Product Callout Banner */}
       <section className="bg-[#0E3B2C] text-white rounded-2xl p-6 sm:p-8 border border-[#1F6B4A] flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
         <div className="space-y-2 text-center md:text-left">
           <Badge variant="marigold" size="sm">
@@ -283,6 +372,28 @@ export const HomePage: React.FC = () => {
           </Button>
         </Link>
       </section>
+
+      {/* Modals for v2 Features */}
+      {showSmartBasket && (
+        <SmartBasketModal
+          isOpen={true}
+          onClose={() => setShowSmartBasket(false)}
+        />
+      )}
+
+      {showAskShops && (
+        <AskShopsModal
+          isOpen={true}
+          onClose={() => setShowAskShops(false)}
+        />
+      )}
+
+      {showMonthlyList && (
+        <MonthlyListModal
+          isOpen={true}
+          onClose={() => setShowMonthlyList(false)}
+        />
+      )}
     </div>
   );
 };

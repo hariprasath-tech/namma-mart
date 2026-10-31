@@ -17,6 +17,7 @@ import { ShopPage } from './pages/ShopPage';
 import { ShopDashboardPage } from './pages/ShopDashboardPage';
 import { PersonCountingDemoPage } from './pages/PersonCountingDemoPage';
 import { AccountPage } from './pages/AccountPage';
+import { LoginPage } from './pages/LoginPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { OfflinePage } from './pages/OfflinePage';
 
@@ -24,9 +25,9 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const location = useLocation();
 
-  const isSplash = location.pathname === '/splash';
+  const isStandalonePage = location.pathname === '/splash' || location.pathname === '/login';
 
-  if (isSplash) {
+  if (isStandalonePage) {
     return <>{children}</>;
   }
 
@@ -91,6 +92,7 @@ export function App() {
       <AppLayout>
         <Routes>
           <Route path="/splash" element={<SplashPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/compare" element={<ComparePage />} />

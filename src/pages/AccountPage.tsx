@@ -75,12 +75,20 @@ export const AccountPage: React.FC = () => {
           </div>
         </div>
 
-        <Link to="/shop">
-          <Button variant="marigold" size="sm" className="inline-flex items-center gap-1.5 font-bold">
-            <Store className="w-4 h-4" />
-            <span>Switch to Shop Owner Portal</span>
-          </Button>
-        </Link>
+        <div className="flex flex-wrap items-center gap-2">
+          <Link to="/login">
+            <Button variant="outline" size="sm" className="inline-flex items-center gap-1.5 text-white border-white/30 hover:bg-white/10">
+              <User className="w-4 h-4 text-[#FFB400]" />
+              <span>Switch Account / Sign In</span>
+            </Button>
+          </Link>
+          <Link to="/shop">
+            <Button variant="marigold" size="sm" className="inline-flex items-center gap-1.5 font-bold">
+              <Store className="w-4 h-4" />
+              <span>Switch to Shop Owner Portal</span>
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* Quick Settings Grid */}

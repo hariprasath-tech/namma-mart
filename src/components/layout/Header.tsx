@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { MapPin, ShoppingBag, Store, Globe, ChevronDown, Eye } from 'lucide-react';
+import { MapPin, ShoppingBag, Store, Globe, ChevronDown, Eye, User } from 'lucide-react';
 import { useLocationStore } from '../../store/location';
 import { useCartStore } from '../../store/cart';
 import { useLangStore } from '../../store/lang';
@@ -93,6 +93,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLocationModal }) => {
           >
             <Store className="w-3.5 h-3.5 text-[#FFB400]" />
             <span>{t('nav.shopPortal')}</span>
+          </Link>
+
+          {/* User Account / Login Button */}
+          <Link
+            to={user ? "/account" : "/login"}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs sm:text-sm font-medium text-white transition-all min-h-[38px]"
+            title={user ? `Signed in as ${user.name}` : "Sign In / Register"}
+          >
+            <User className="w-3.5 h-3.5 text-[#FFB400]" />
+            <span className="hidden sm:inline">{user ? user.name.split(' ')[0] : 'Sign In'}</span>
           </Link>
 
           {/* Cart Button */}

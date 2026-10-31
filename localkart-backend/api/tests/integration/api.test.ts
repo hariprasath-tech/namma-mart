@@ -222,4 +222,96 @@ describe('LocalKart v3 - API Integration Tests', () => {
       expect(restoredOffer?.stock).toBe(initialStock);
     });
   });
+
+  // 6. CSV Bulk Upload with Row-Numbered Error Validation (Section 8.2)
+  describe('Inventory CSV Bulk Import (POST /api/v1/owner/stock/import)', () => {
+    it('validates CSV rows and reports exact row numbers for invalid lines', async () => {
+      const csvWithErrors = [
+        'product_name,category,unit,price,stock',
+        'Valid Ponni Rice,Grocery,1 kg,65.00,20',
+        ',Grocery,1 kg,50.00,10', // Row 3: Missing name
+        'Invalid Price Oil,Oils,1 L,not_a_number,15', // Row 4: Invalid price
+        'Negative Stock Dal,Pulses,1 kg,120.00,-5', // Row 5: Negative stock
+        'Valid Sambar Powder,Spices,100g,35.50,50', // Row 6: Valid
+      ].join('\n');
+
+      const res = await request.post('/api/v1/owner/stock/import').send({
+        shopId: 'shop-1',
+        csv: csvWithErrors,
+      });
+
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(false);
+      expect(res.body.importedCount).toBe(2);
+      expect(res.body.errorCount).toBe(3);
+
+      const errorRows = res.body.errors.map((e: any) => e.row);
+      expect(errorRows).toEqual([3, 4, 5]);
+      expect(res.body.errors[0].message).toContain('product name');
+      expect(res.body.errors[1].message).toContain('Invalid price');
+      expect(res.body.errors[2].message).toContain('Invalid stock');
+    });
+
+    it('successfully exports inventory as CSV', async () => {
+      const res = await request.get('/api/v1/owner/stock/export?shopId=shop-1');
+      expect(res.status).toBe(200);
+      expect(res.headers['content-type']).toContain('text/csv');
+      expect(res.text).toContain('Product Name');
+      expect(res.text).toContain('Price (₹)');
+    });
+  });
+
+  // 7. Khata Ledger & Ageing Calculations (Section 8.3)
+  describe('Khata Ledger & Ageing (GET /api/v1/owner/khata/ageing)', () => {
+    it('creates customer, records debt and payment, and computes ageing buckets', async () => {
+      // 1. Create Khata Customer
+      const custRes = await request.post('/api/v1/owner/khata').send({
+        shopId: 'shop-1',
+        name: 'Venkatesh Babu',
+        phone: '+91 98421 88888',
+        initialBalancePaise: 45000, // ₹450 debt
+        note: 'Provisions for temple festival',
+      });
+      expect(custRes.status).toBe(201);
+      const customerId = custRes.body.customer.id;
+
+      // 2. Record Partial Repayment
+      const payRes = await request.post(`/api/v1/owner/khata/${customerId}/payment`).send({
+        amount: 20000, // ₹200 payment
+        mode: 'upi',
+        note: 'UPI payment via GPay',
+      });
+      expect(payRes.status).toBe(201);
+      expect(payRes.body.remainingBalancePaise).toBe(25000); // ₹250 remaining
+
+      // 3. Check Ageing Buckets
+      const ageRes = await request.get('/api/v1/owner/khata/ageing?shopId=shop-1');
+      expect(ageRes.status).toBe(200);
+      expect(ageRes.body.totalOutstandingPaise).toBeGreaterThanOrEqual(25000);
+      expect(ageRes.body.buckets).toBeDefined();
+      expect(ageRes.body.buckets.current0to7Paise).toBeGreaterThanOrEqual(0);
+      expect(ageRes.body.buckets.due8to30Paise).toBeGreaterThanOrEqual(0);
+      expect(ageRes.body.buckets.overdue30plusPaise).toBeGreaterThanOrEqual(0);
+    });
+  });
+
+  // 8. Reorder List & Crowd Endpoints
+  describe('Reorder & Crowd Intelligence Endpoints', () => {
+    it('returns low-stock replenishment reorder list', async () => {
+      const res = await request.get('/api/v1/owner/reorder-list?shopId=shop-1');
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body.reorderList)).toBe(true);
+    });
+
+    it('returns live crowd and zone status', async () => {
+      const liveRes = await request.get('/api/v1/owner/crowd/live?shopId=shop-1');
+      expect(liveRes.status).toBe(200);
+      expect(liveRes.body.peopleNow).toBeDefined();
+
+      const zoneRes = await request.get('/api/v1/owner/crowd/zones?shopId=shop-1');
+      expect(zoneRes.status).toBe(200);
+      expect(zoneRes.body.zones.length).toBeGreaterThan(0);
+      expect(zoneRes.body.staffingHint).toBeDefined();
+    });
+  });
 });

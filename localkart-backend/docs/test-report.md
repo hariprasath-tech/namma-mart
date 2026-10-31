@@ -12,7 +12,7 @@
 |---|---|---|---|---|---|---|---|
 | **Frontend Core Tests** | Vitest | State management, simple mode, simulation math | 15 | 15 | 0 | 0 | **PASS** |
 | **API Unit Tests** | Vitest | Pure business logic (`api/src/lib/business.ts`) | 16 | 16 | 0 | 0 | **PASS** |
-| **API Integration Tests** | Vitest + Supertest | Auth, Search, Concurrency, Idempotency, Holds | 8 | 8 | 0 | 0 | **PASS** |
+| **API Integration Tests** | Vitest + Supertest | Auth, Search, Concurrency, Idempotency, Holds, CSV Import, Khata Ageing, Multi-Vendor, Reviews, Admin | 23 | 23 | 0 | 0 | **PASS** |
 | **Contract Tests** | Vitest + JSON Schema | Fastify endpoints vs `shared/ml.schema.json` | 5 | 5 | 0 | 0 | **PASS** |
 | **ML Geometry & Tracking** | Pytest | Gap finder, Shapely zones, Little's Law queues | 6 | 6 | 0 | 0 | **PASS** |
 | **Cross-Language Parity** | Pytest vs Vitest | `classifyCrowd` threshold equivalence | 8 | 8 | 0 | 0 | **PASS** |
@@ -21,7 +21,7 @@
 | **Lost Demand Normalization** | Pytest | Tamil/English transliteration & alias grouping | 5 | 5 | 0 | 0 | **PASS** |
 | **Privacy & Zero Disk Leakage** | Pytest | RAM decode & ephemeral frame disposal | 1 | 1 | 0 | 0 | **PASS** |
 | **ML Contract Validation** | Pytest + JSON Schema | FastAPI responses vs `shared/ml.schema.json` | 1 | 1 | 0 | 0 | **PASS** |
-| **TOTAL** | — | **Full System Regression Suite** | **68** | **68** | **0** | **0** | **100% PASS** |
+| **TOTAL** | — | **Full System Regression Suite** | **83** | **83** | **0** | **0** | **100% PASS** |
 
 ---
 

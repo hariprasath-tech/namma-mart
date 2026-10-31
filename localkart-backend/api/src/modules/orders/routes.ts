@@ -475,4 +475,206 @@ export async function orderRoutes(fastify: FastifyInstance) {
     const watch = await prisma.priceWatch.create({ data: body });
     return reply.status(201).send({ watch });
   });
+
+  // GET /orders/mine (Customer Order History)
+  fastify.get('/orders/mine', async (request, reply) => {
+    const phone = (request.query as any)?.phone || (request.headers['x-user-phone'] as string);
+    const userId = request.headers['x-user-id'] as string;
+
+    const where: any = {};
+    if (phone) {
+      where.customerPhone = phone;
+    } else if (userId) {
+      where.userId = userId;
+    } else {
+      where.customerPhone = '+91 98421 90112'; // Murugan K. default demo customer
+    }
+
+    const orders = await prisma.order.findMany({
+      where,
+      include: { items: true, payments: true, shop: true },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return { orders };
+  });
+
+  // POST /orders/:id/review (Post Customer Review & Recalculate Shop Rating)
+  fastify.post('/orders/:id/review', async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const schema = z.object({
+      rating: z.number().int().min(1).max(5),
+      text: z.string().min(3),
+      textTa: z.string().optional(),
+      author: z.string().default('Murugan K.'),
+    });
+
+    const body = schema.parse(request.body);
+    const order = await prisma.order.findUnique({
+      where: { id },
+      include: { shop: true },
+    });
+
+    if (!order) {
+      throw new AppError(404, 'ORDER_NOT_FOUND', `Order #${id} not found`, 'Provide a valid order ID');
+    }
+
+    const review = await prisma.$transaction(async (tx) => {
+      const createdReview = await tx.review.create({
+        data: {
+          shopId: order.shopId,
+          userId: order.userId,
+          author: body.author,
+          rating: body.rating,
+          text: body.text,
+          textTa: body.textTa,
+        },
+      });
+
+      // Recalculate aggregate shop rating
+      const allReviews = await tx.review.findMany({
+        where: { shopId: order.shopId },
+        select: { rating: true },
+      });
+
+      const avgRating = allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+      await tx.shop.update({
+        where: { id: order.shopId },
+        data: {
+          rating: parseFloat(avgRating.toFixed(1)),
+          reviewCount: allReviews.length,
+        },
+      });
+
+      return createdReview;
+    });
+
+    return reply.status(201).send({ review });
+  });
+
+  // POST /orders/multi-vendor (Multi-Vendor Split Order Checkout)
+  fastify.post('/orders/multi-vendor', async (request, reply) => {
+    const schema = z.object({
+      customerName: z.string().min(2),
+      customerPhone: z.string().min(10),
+      deliveryAddress: z.string().optional(),
+      mode: z.enum(['delivery', 'pickup']).default('delivery'),
+      payment: z.enum(['upi', 'card', 'cod']).default('upi'),
+      items: z.array(
+        z.object({
+          offerId: z.string(),
+          qty: z.number().int().min(1),
+        })
+      ).min(1, 'Order must contain items'),
+    });
+
+    const body = schema.parse(request.body);
+
+    // 1. Group items by their shop ID
+    const offerIds = body.items.map((i) => i.offerId);
+    const offers = await prisma.offer.findMany({
+      where: { id: { in: offerIds } },
+      include: { product: true, shop: true },
+    });
+
+    const offerMap = new Map(offers.map((o) => [o.id, o]));
+    const shopGroupMap = new Map<string, { shop: any; items: { offer: any; qty: number }[] }>();
+
+    for (const it of body.items) {
+      const off = offerMap.get(it.offerId);
+      if (!off) {
+        throw new AppError(404, 'OFFER_NOT_FOUND', `Item ${it.offerId} not available`, 'Refresh cart');
+      }
+      if (off.stock < it.qty) {
+        throw new AppError(409, 'INSUFFICIENT_STOCK', `Insufficient stock for ${off.product.name}`, 'Adjust quantity');
+      }
+
+      if (!shopGroupMap.has(off.shopId)) {
+        shopGroupMap.set(off.shopId, { shop: off.shop, items: [] });
+      }
+      shopGroupMap.get(off.shopId)!.items.push({ offer: off, qty: it.qty });
+    }
+
+    // 2. Transact orders for each vendor
+    const createdOrders = await prisma.$transaction(async (tx) => {
+      const results: any[] = [];
+
+      for (const [shopId, group] of shopGroupMap.entries()) {
+        let subtotal = 0;
+        const orderItemsToCreate: any[] = [];
+
+        for (const item of group.items) {
+          // Decrement inventory atomically
+          await tx.offer.update({
+            where: { id: item.offer.id },
+            data: { stock: { decrement: item.qty } },
+          });
+
+          // Record stock movement
+          await tx.stockMovement.create({
+            data: {
+              shopId,
+              productId: item.offer.productId,
+              productName: item.offer.product.name,
+              type: 'sale',
+              qty: -item.qty,
+              note: `Multi-vendor order for ${body.customerName}`,
+            },
+          });
+
+          const itemTotal = item.offer.price * item.qty;
+          subtotal += itemTotal;
+
+          orderItemsToCreate.push({
+            offerId: item.offer.id,
+            name: item.offer.product.name,
+            price: item.offer.price,
+            qty: item.qty,
+            unit: item.offer.product.unit,
+          });
+        }
+
+        const deliveryFee = body.mode === 'delivery' ? 2000 : 0; // ₹20
+        const totalAmount = subtotal + deliveryFee;
+
+        const order = await tx.order.create({
+          data: {
+            shopId,
+            shopName: group.shop.shortName || group.shop.name,
+            customerName: body.customerName,
+            customerPhone: body.customerPhone,
+            deliveryAddress: body.deliveryAddress || 'Pollachi',
+            mode: body.mode,
+            payment: body.payment,
+            paymentStatus: body.payment === 'cod' ? 'pending' : 'paid',
+            status: 'packed',
+            subtotal,
+            deliveryFee,
+            totalAmount,
+            items: { create: orderItemsToCreate },
+            payments: {
+              create: {
+                amount: totalAmount,
+                mode: body.payment,
+                status: body.payment === 'cod' ? 'pending' : 'success',
+                reference: `TXN-MV-${Date.now().toString().slice(-6)}`,
+              },
+            },
+          },
+          include: { items: true, payments: true },
+        });
+
+        results.push(order);
+      }
+
+      return results;
+    });
+
+    return reply.status(201).send({
+      multiVendor: true,
+      orderCount: createdOrders.length,
+      orders: createdOrders,
+    });
+  });
 }
+

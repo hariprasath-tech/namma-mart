@@ -106,4 +106,98 @@ export async function shopRoutes(fastify: FastifyInstance) {
       return { hours: baseCurve, meta: { source: 'baseline', synthetic: true } };
     }
   });
+
+  // GET /shops/types
+  fastify.get('/types', async () => {
+    const shops = await prisma.shop.findMany({ select: { area: true, type: true } });
+    const areas = [...new Set(shops.map((s) => s.area))];
+    const types = [...new Set(shops.map((s) => s.type))];
+    return { areas, types };
+  });
+
+  // POST /shops (Vendor Store Registration)
+  fastify.post('/', async (request, reply) => {
+    const schema = z.object({
+      name: z.string().min(3),
+      shortName: z.string().min(2).max(16),
+      nameTa: z.string().optional(),
+      area: z.string().min(2),
+      address: z.string().min(5),
+      phone: z.string().min(10),
+      lat: z.number().default(10.6609),
+      lng: z.number().default(77.0048),
+      categories: z.array(z.string()).default(['Grocery']),
+      bannerColor: z.string().default('#0E3B2C'),
+      type: z.enum(['small', 'department']).default('small'),
+      delivery: z.boolean().default(true),
+      pickup: z.boolean().default(true),
+    });
+
+    const body = schema.parse(request.body);
+
+    const shop = await prisma.shop.create({
+      data: {
+        name: body.name,
+        shortName: body.shortName,
+        nameTa: body.nameTa,
+        area: body.area,
+        address: body.address,
+        phone: body.phone,
+        lat: body.lat,
+        lng: body.lng,
+        categories: JSON.stringify(body.categories),
+        bannerColor: body.bannerColor,
+        type: body.type,
+        delivery: body.delivery,
+        pickup: body.pickup,
+        verified: true,
+      },
+    });
+
+    return reply.status(201).send({
+      shop: {
+        ...shop,
+        categories: JSON.parse(shop.categories),
+      },
+    });
+  });
+
+  // PATCH /shops/:id (Update Shop Details)
+  fastify.patch('/:id', async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const schema = z.object({
+      name: z.string().min(3).optional(),
+      address: z.string().optional(),
+      phone: z.string().optional(),
+      hours: z.string().optional(),
+      openNow: z.boolean().optional(),
+      delivery: z.boolean().optional(),
+      pickup: z.boolean().optional(),
+      categories: z.array(z.string()).optional(),
+    });
+
+    const body = schema.parse(request.body);
+    const existing = await prisma.shop.findUnique({ where: { id } });
+    if (!existing) {
+      throw new AppError(404, 'SHOP_NOT_FOUND', `Shop #${id} not found`, 'Check shop ID');
+    }
+
+    const data: any = { ...body };
+    if (body.categories) {
+      data.categories = JSON.stringify(body.categories);
+    }
+
+    const updated = await prisma.shop.update({
+      where: { id },
+      data,
+    });
+
+    return {
+      shop: {
+        ...updated,
+        categories: JSON.parse(updated.categories),
+      },
+    };
+  });
 }
+

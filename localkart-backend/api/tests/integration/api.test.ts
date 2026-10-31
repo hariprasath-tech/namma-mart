@@ -314,4 +314,162 @@ describe('LocalKart v3 - API Integration Tests', () => {
       expect(zoneRes.body.staffingHint).toBeDefined();
     });
   });
+
+  // 9. Vendor Shop Management & Categories
+  describe('Vendor Shop Management (/api/v1/shops)', () => {
+    let createdShopId: string;
+
+    it('creates a new vendor shop', async () => {
+      const res = await request.post('/api/v1/shops').send({
+        name: 'Pollachi Organic Organics',
+        shortName: 'Pollachi Org',
+        area: 'Palakkad Road',
+        address: '88, Palakkad Road, Pollachi',
+        phone: '+91 94422 11000',
+        categories: ['Organic', 'Millets', 'Grocery'],
+        type: 'small',
+      });
+
+      expect(res.status).toBe(201);
+      expect(res.body.shop.name).toBe('Pollachi Organic Organics');
+      expect(res.body.shop.categories).toContain('Organic');
+      createdShopId = res.body.shop.id;
+    });
+
+    it('updates shop details', async () => {
+      const res = await request.patch(`/api/v1/shops/${createdShopId}`).send({
+        openNow: false,
+        hours: '7:30 AM - 10:00 PM',
+      });
+
+      expect(res.status).toBe(200);
+      expect(res.body.shop.openNow).toBe(false);
+      expect(res.body.shop.hours).toBe('7:30 AM - 10:00 PM');
+    });
+
+    it('returns distinct shop types and areas', async () => {
+      const res = await request.get('/api/v1/shops/types');
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body.areas)).toBe(true);
+      expect(Array.isArray(res.body.types)).toBe(true);
+    });
+  });
+
+  // 10. Master Product Catalogue Management
+  describe('Product Catalogue Management (/api/v1/products)', () => {
+    let testProductId: string;
+
+    it('creates a new master product and returns categories', async () => {
+      const res = await request.post('/api/v1/products').send({
+        name: 'Pollachi Virgin Coconut Oil 500ml',
+        category: 'Oils',
+        unit: '500 ml',
+        description: 'Cold-pressed extra virgin coconut oil from local Pollachi farms',
+      });
+
+      expect(res.status).toBe(201);
+      expect(res.body.product.name).toContain('Virgin Coconut Oil');
+      testProductId = res.body.product.id;
+
+      const catRes = await request.get('/api/v1/products/categories');
+      expect(catRes.status).toBe(200);
+      expect(catRes.body.categories).toContain('Oils');
+    });
+
+    it('updates master product info', async () => {
+      const res = await request.patch(`/api/v1/products/${testProductId}`).send({
+        unit: '1 Litre Bottle',
+      });
+      expect(res.status).toBe(200);
+      expect(res.body.product.unit).toBe('1 Litre Bottle');
+    });
+  });
+
+  // 11. Multi-Vendor Order Processing & Customer Review
+  describe('Multi-Vendor Order Checkout & Reviews', () => {
+    it('processes multi-vendor cart and generates separate vendor orders with stock depletion', async () => {
+      const offers = await prisma.offer.findMany({
+        where: { stock: { gte: 2 } },
+        take: 2,
+      });
+
+      if (offers.length >= 2) {
+        const initialStock0 = offers[0].stock;
+        const initialStock1 = offers[1].stock;
+
+        const res = await request.post('/api/v1/orders/multi-vendor').send({
+          customerName: 'Anitha Rajan',
+          customerPhone: '+91 98421 77777',
+          deliveryAddress: '32, Gandhi Nagar, Pollachi',
+          mode: 'delivery',
+          payment: 'upi',
+          items: [
+            { offerId: offers[0].id, qty: 1 },
+            { offerId: offers[1].id, qty: 1 },
+          ],
+        });
+
+        expect(res.status).toBe(201);
+        expect(res.body.multiVendor).toBe(true);
+        expect(res.body.orders.length).toBeGreaterThanOrEqual(1);
+
+        // Verify stock depleted
+        const check0 = await prisma.offer.findUnique({ where: { id: offers[0].id } });
+        expect(check0?.stock).toBe(initialStock0 - 1);
+
+        // Test Customer Order Review
+        const testOrderId = res.body.orders[0].id;
+        const reviewRes = await request.post(`/api/v1/orders/${testOrderId}/review`).send({
+          rating: 5,
+          text: 'Super fresh products and prompt delivery!',
+          author: 'Anitha Rajan',
+        });
+        expect(reviewRes.status).toBe(201);
+        expect(reviewRes.body.review.rating).toBe(5);
+      }
+    });
+
+    it('returns customer order history via /api/v1/orders/mine', async () => {
+      const res = await request.get('/api/v1/orders/mine?phone=%2B91%2098421%2090112');
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body.orders)).toBe(true);
+    });
+  });
+
+  // 12. Admin Platform Operations
+  describe('Admin Operations (/api/v1/admin)', () => {
+    it('returns platform statistics with GMV and counts', async () => {
+      const res = await request.get('/api/v1/admin/stats');
+      expect(res.status).toBe(200);
+      expect(res.body.stats.totalShops).toBeGreaterThan(0);
+      expect(res.body.stats.totalProducts).toBeGreaterThan(0);
+      expect(res.body.stats.totalGmvPaise).toBeDefined();
+    });
+
+    it('lists all shops and updates verification status', async () => {
+      const shopsRes = await request.get('/api/v1/admin/shops');
+      expect(shopsRes.status).toBe(200);
+      expect(shopsRes.body.shops.length).toBeGreaterThan(0);
+
+      const targetShop = shopsRes.body.shops[0];
+      const verifyRes = await request.patch(`/api/v1/admin/shops/${targetShop.id}/verify`).send({
+        verified: true,
+      });
+      expect(verifyRes.status).toBe(200);
+      expect(verifyRes.body.shop.verified).toBe(true);
+    });
+
+    it('lists users and updates role', async () => {
+      const usersRes = await request.get('/api/v1/admin/users');
+      expect(usersRes.status).toBe(200);
+      expect(usersRes.body.users.length).toBeGreaterThan(0);
+
+      const targetUser = usersRes.body.users[0];
+      const roleRes = await request.patch(`/api/v1/admin/users/${targetUser.id}/role`).send({
+        role: 'customer',
+      });
+      expect(roleRes.status).toBe(200);
+      expect(roleRes.body.user.role).toBe('customer');
+    });
+  });
 });

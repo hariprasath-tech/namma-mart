@@ -195,4 +195,61 @@ export async function catalogueRoutes(fastify: FastifyInstance) {
     const result = optimizeBasket(list, storeOfferItems, baseDeliveryFee);
     return result;
   });
+
+  // GET /products/categories (Distinct categories)
+  fastify.get('/products/categories', async () => {
+    const products = await prisma.product.findMany({ select: { category: true } });
+    const categories = ['All', ...new Set(products.map((p) => p.category))];
+    return { categories };
+  });
+
+  // POST /products (Add Master Product)
+  fastify.post('/products', async (request, reply) => {
+    const schema = z.object({
+      name: z.string().min(2),
+      nameTa: z.string().optional(),
+      category: z.string().min(2),
+      unit: z.string().default('1 kg'),
+      image: z.string().url().default('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=400'),
+      description: z.string().default('Fresh product from local Pollachi vendor'),
+      descriptionTa: z.string().optional(),
+    });
+
+    const body = schema.parse(request.body);
+
+    const product = await prisma.product.create({
+      data: body,
+    });
+
+    return reply.status(201).send({ product });
+  });
+
+  // PATCH /products/:id (Update Master Product)
+  fastify.patch('/products/:id', async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const schema = z.object({
+      name: z.string().min(2).optional(),
+      nameTa: z.string().optional(),
+      category: z.string().min(2).optional(),
+      unit: z.string().optional(),
+      image: z.string().url().optional(),
+      description: z.string().optional(),
+      descriptionTa: z.string().optional(),
+    });
+
+    const body = schema.parse(request.body);
+
+    const existing = await prisma.product.findUnique({ where: { id } });
+    if (!existing) {
+      throw new AppError(404, 'PRODUCT_NOT_FOUND', `Product #${id} not found`, 'Check product ID');
+    }
+
+    const updated = await prisma.product.update({
+      where: { id },
+      data: body,
+    });
+
+    return { product: updated };
+  });
 }
+

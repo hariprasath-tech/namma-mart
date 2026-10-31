@@ -214,6 +214,7 @@ export const OwnerStockTab: React.FC<OwnerStockTabProps> = ({
                 <th className="py-3 px-4">Margin</th>
                 <th className="py-3 px-4">Expiry Status</th>
                 <th className="py-3 px-4 text-center">In-Stock Units</th>
+                {onDeleteOffer && <th className="py-3 px-4 text-center">Action</th>}
               </tr>
             </thead>
             <tbody className="divide-y divide-[#DDE5D9]">
@@ -329,6 +330,23 @@ export const OwnerStockTab: React.FC<OwnerStockTabProps> = ({
                       </button>
                     </div>
                   </td>
+
+                  {onDeleteOffer && (
+                    <td className="py-3.5 px-4 text-center">
+                      <button
+                        onClick={() => {
+                          if (window.confirm(`Are you sure you want to remove "${row.product.name}" from your shop catalog?`)) {
+                            onDeleteOffer(row.offer.id);
+                          }
+                        }}
+                        className="p-2 rounded-lg text-[#9B2C24] hover:bg-[#FFF3F2] transition-colors"
+                        title="Remove product offer"
+                        aria-label="Remove product offer"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

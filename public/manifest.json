@@ -1,0 +1,64 @@
+{
+  "name": "LocalKart – Support Local. Shop Meaningful.",
+  "short_name": "LocalKart",
+  "description": "Hyperlocal shopping for Pollachi and nearby towns in Tamil Nadu. Compare price, distance, and ratings across local shops in seconds.",
+  "start_url": "/?source=pwa",
+  "id": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F7F9F4",
+  "theme_color": "#0E3B2C",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["shopping", "lifestyle", "business"],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Explore Local Shops",
+      "short_name": "Shops",
+      "description": "Browse verified neighbourhood stores in Pollachi",
+      "url": "/#shops",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Smart Basket Optimizer",
+      "short_name": "Smart Basket",
+      "description": "Calculate cheapest single store vs split order savings",
+      "url": "/cart",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Merchant Dashboard",
+      "short_name": "Store Owner",
+      "description": "Manage orders, inventory, live footfall and khata credit",
+      "url": "/shop",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
+}

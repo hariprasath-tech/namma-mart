@@ -144,6 +144,16 @@ export const ShopDashboardPage: React.FC = () => {
     }
   };
 
+  // Delete offer mutation
+  const handleDeleteOffer = async (offerId: string) => {
+    try {
+      await api.deleteOffer(offerId);
+      setOffers((prev) => prev.filter((o) => o.id !== offerId));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // Order status update
   const handleOrderStatusChange = async (orderId: string, status: any) => {
     try {
@@ -553,6 +563,7 @@ export const ShopDashboardPage: React.FC = () => {
               onUpdateStock={handleStockDelta}
               onUpdatePrice={handlePriceChange}
               onOpenAddModal={() => setShowAddModal(true)}
+              onDeleteOffer={handleDeleteOffer}
             />
           )}
 

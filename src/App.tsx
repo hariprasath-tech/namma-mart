@@ -18,6 +18,7 @@ import { ShopDashboardPage } from './pages/ShopDashboardPage';
 import { PersonCountingDemoPage } from './pages/PersonCountingDemoPage';
 import { AccountPage } from './pages/AccountPage';
 import { LoginPage } from './pages/LoginPage';
+import { AdminDashboardPage } from './pages/AdminDashboardPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { OfflinePage } from './pages/OfflinePage';
 
@@ -104,6 +105,7 @@ export function App() {
           <Route path="/shop/crowd/demo" element={<PersonCountingDemoPage />} />
           <Route path="/shop/:shopId" element={<ShopPage />} />
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/admin" element={<AdminDashboardPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AppLayout>

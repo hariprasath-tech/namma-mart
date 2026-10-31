@@ -52,3 +52,35 @@ async def analyze_crowd(
             stale=False
         )
     )
+
+
+@router.get("/live", response_model=CrowdSnapshot)
+async def get_live_crowd(shopId: str = "shop-1"):
+    """
+    Returns live crowd state for shop.
+    """
+    people_now = 22
+    billing_counters = [
+        {"counterId": "counter_1", "polygon": [[0.7, 0.7], [0.95, 0.7], [0.95, 0.95], [0.7, 0.95]], "avgServiceMins": 2.5},
+        {"counterId": "counter_2", "polygon": [[0.4, 0.7], [0.65, 0.7], [0.65, 0.95], [0.4, 0.95]], "avgServiceMins": 3.0}
+    ]
+    sample_positions = [
+        (0.2, 0.3), (0.25, 0.35), (0.15, 0.8), (0.8, 0.82), (0.85, 0.88), (0.82, 0.75),
+        (0.45, 0.75), (0.5, 0.8), (0.55, 0.2), (0.6, 0.3), (0.1, 0.5), (0.3, 0.5)
+    ]
+    queues = estimate_queues(sample_positions, billing_counters)
+    level = classify_crowd(people_now, capacity_hint=30)
+    now_iso = datetime.now(timezone.utc).isoformat()
+    return CrowdSnapshot(
+        peopleNow=people_now,
+        level=level,
+        queues=queues,
+        meta=ModelMeta(
+            model="LocalKart-CrowdDetector-v3",
+            version="3.0.0",
+            source="pretrained",
+            generatedAt=now_iso,
+            stale=False
+        )
+    )
+

@@ -15,6 +15,8 @@ import { orderRoutes } from './modules/orders/routes.js';
 import { ownerRoutes } from './modules/owner/routes.js';
 import { healthRoutes } from './modules/health/routes.js';
 import { adminRoutes } from './modules/admin/routes.js';
+import { notificationRoutes } from './modules/notifications/routes.js';
+import { chatRoutes } from './modules/chat/routes.js';
 
 export function buildApp() {
   const fastify = Fastify({
@@ -87,6 +89,8 @@ export function buildApp() {
       api.register(orderRoutes);
       api.register(ownerRoutes, { prefix: '/owner' });
       api.register(adminRoutes, { prefix: '/admin' });
+      api.register(notificationRoutes, { prefix: '/notifications' });
+      api.register(chatRoutes, { prefix: '/chat' });
       api.register(healthRoutes);
     },
     { prefix: '/api/v1' }

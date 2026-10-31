@@ -21,6 +21,7 @@ model User {
   holds        Hold[]
   priceWatches PriceWatch[]
   requests     ItemRequest[]
+  notifications Notification[]
 }
 
 model Shop {
@@ -435,4 +436,31 @@ model ModelRun {
   metricsJson String      // Accuracy, MAE, Coverage, Support
   synthetic   Boolean     @default(true)
   startedAt   DateTime    @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("info") // info | order | promo | price
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ChatMessage {
+  id             String   @id @default(uuid())
+  conversationId String
+  userId         String?
+  role           String   // user | assistant | system | tool
+  content        String
+  toolName       String?
+  toolCallJson   String?
+  createdAt      DateTime @default(now())
+
+  @@index([conversationId])
 }

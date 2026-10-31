@@ -4,6 +4,7 @@ import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { BottomTabBar } from './components/layout/BottomTabBar';
 import { LocationModal } from './components/layout/LocationModal';
+import { PwaBanner } from './components/ui/PwaBanner';
 
 import { SplashPage } from './pages/SplashPage';
 import { HomePage } from './pages/HomePage';
@@ -34,6 +35,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F7F9F4] text-[#14201B]">
+      <PwaBanner />
       <Header onOpenLocationModal={() => setIsLocationModalOpen(true)} />
       
       <main className="flex-1 pb-16 md:pb-6">
@@ -68,25 +70,6 @@ function SessionSplashRedirect() {
 }
 
 export function App() {
-  const [isOffline, setIsOffline] = useState(!navigator.onLine);
-
-  useEffect(() => {
-    const handleOnline = () => setIsOffline(false);
-    const handleOffline = () => setIsOffline(true);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
-
-  if (isOffline) {
-    return <OfflinePage />;
-  }
-
   return (
     <BrowserRouter>
       <SessionSplashRedirect />
@@ -106,6 +89,7 @@ export function App() {
           <Route path="/shop/:shopId" element={<ShopPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
+          <Route path="/offline" element={<OfflinePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AppLayout>

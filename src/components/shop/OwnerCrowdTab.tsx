@@ -53,7 +53,7 @@ const FLOOR_ZONES: ZoneMeta[] = [
   { id: 'home', name: 'Home Needs & Kitchen', x: 20, y: 180, w: 220, h: 180, baseDwell: 11.0, topItem: 'Prestige 3L Cooker', topItemSold: 6 },
   { id: 'fashion', name: 'Clothing & Towels', x: 260, y: 180, w: 180, h: 180, baseDwell: 16.5, topItem: 'Handloom Cotton Dhoti', topItemSold: 14 },
   { id: 'stationery', name: 'Stationery & Books', x: 460, y: 180, w: 200, h: 180, baseDwell: 7.0, topItem: 'Classmate 192p Notebook', topItemSold: 19 },
-  { id: 'billing', name: 'Billing Counters & Exit', x: 20, y: 380, w: 840, h: 100, baseDwell: 5.5, topItem: 'Impulse Candy / Gums', topItemSold: 54 },
+  { id: 'billing', name: 'Billing Counters & Exit', x: 20, y: 375, w: 840, h: 85, baseDwell: 5.5, topItem: 'Impulse Candy / Gums', topItemSold: 54 },
 ];
 
 export const OwnerCrowdTab: React.FC<OwnerCrowdTabProps> = ({ shop, onOpenDemo }) => {
@@ -311,8 +311,9 @@ export const OwnerCrowdTab: React.FC<OwnerCrowdTabProps> = ({ shop, onOpenDemo }
             <rect x="10" y="10" width="860" height="480" rx="8" fill="none" stroke="#1F6B4A" strokeWidth="3" />
 
             {/* Entrance / Exit Gate */}
-            <path d="M 400 490 L 480 490" stroke="#FFB400" strokeWidth="8" strokeLinecap="round" />
-            <text x="440" y="482" textAnchor="middle" fill="#0E3B2C" fontSize="10" fontWeight="bold">
+            <rect x="360" y="470" width="160" height="20" rx="10" fill="#0E3B2C" />
+            <path d="M 390 490 L 490 490" stroke="#FFB400" strokeWidth="4" strokeLinecap="round" />
+            <text x="440" y="484" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold" letterSpacing="1">
               MAIN ENTRANCE / EXIT
             </text>
 

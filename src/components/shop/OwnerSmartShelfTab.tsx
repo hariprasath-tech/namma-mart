@@ -428,27 +428,27 @@ export const OwnerSmartShelfTab: React.FC<OwnerSmartShelfTabProps> = ({
               {shelfStatus?.gaps.map((gap, i) => (
                 <div
                   key={i}
-                  className="absolute border-2 border-[#D63A2F] bg-[#D63A2F]/20 rounded-md p-2 flex flex-col justify-between"
+                  className="absolute border-2 border-dashed border-[#D63A2F] bg-[#D63A2F]/15 rounded-lg p-2 flex flex-col justify-between shadow-lg backdrop-blur-[1px]"
                   style={{
-                    left: '54%',
-                    top: '56%',
-                    width: '26%',
-                    height: '32%',
+                    left: '53%',
+                    top: '55%',
+                    width: '27%',
+                    height: '35%',
                   }}
                 >
-                  <div className="bg-[#D63A2F] text-white text-[10px] font-bold px-1.5 py-0.5 rounded self-start flex items-center gap-1 shadow-sm">
-                    <AlertTriangle className="w-3 h-3" />
+                  <div className="bg-[#D63A2F] text-white text-[10px] font-bold px-2 py-0.5 rounded self-start flex items-center gap-1 shadow-sm">
+                    <AlertTriangle className="w-3.5 h-3.5" />
                     <span>2 PACKS MISSING</span>
                   </div>
 
-                  <div className="bg-black/80 rounded p-1.5 text-[10px] text-white backdrop-blur-xs flex items-center justify-between">
-                    <div>
-                      <p className="font-bold text-[#FFB400]">Ponni Rice 1kg</p>
-                      <p className="text-white/70">Rack-A2 gap detected</p>
+                  <div className="bg-black/85 rounded-lg p-2 text-[10px] text-white backdrop-blur-sm flex items-center justify-between gap-1 shadow-md border border-white/10">
+                    <div className="leading-tight">
+                      <p className="font-bold text-[#FFB400] text-[11px] truncate">Ponni Rice 1kg</p>
+                      <p className="text-white/70 text-[9px]">Rack-A2 gap detected</p>
                     </div>
                     <button
                       onClick={() => handleCreateRestockTask(gap)}
-                      className="px-2 py-1 bg-[#D63A2F] hover:bg-[#B92B21] text-white rounded font-bold transition-transform active:scale-95 cursor-pointer"
+                      className="px-2.5 py-1 bg-[#D63A2F] hover:bg-[#B92B21] text-white text-[11px] rounded font-bold transition-transform active:scale-95 cursor-pointer shrink-0 shadow"
                     >
                       + Restock
                     </button>

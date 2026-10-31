@@ -23,6 +23,18 @@ async function main() {
   const expensesRaw = JSON.parse(fs.readFileSync(path.join(frontendDataDir, 'expenses.json'), 'utf8'));
   const khataRaw = JSON.parse(fs.readFileSync(path.join(frontendDataDir, 'khata.json'), 'utf8'));
 
+  // 0. Clean dynamic seed tables for idempotency
+  await prisma.modelRun.deleteMany({});
+  await prisma.stockMovement.deleteMany({});
+  await prisma.shelfGap.deleteMany({});
+  await prisma.shelfSnapshot.deleteMany({});
+  await prisma.camera.deleteMany({});
+  await prisma.itemRequestReply.deleteMany({});
+  await prisma.itemRequest.deleteMany({});
+  await prisma.khataEntry.deleteMany({});
+  await prisma.khataCustomer.deleteMany({});
+  await prisma.expense.deleteMany({});
+
   // 1. Create Default Users (Bcrypt hashed password: 'localkart123')
   const passwordHash = await bcrypt.hash('localkart123', 10);
 

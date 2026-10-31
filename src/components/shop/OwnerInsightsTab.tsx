@@ -25,6 +25,8 @@ import {
   CartesianGrid,
 } from 'recharts';
 
+import { api } from '../../api';
+
 interface OwnerInsightsTabProps {
   shop: Shop;
   offers: Offer[];
@@ -39,27 +41,34 @@ export const OwnerInsightsTab: React.FC<OwnerInsightsTabProps> = ({
   const [forecast, setForecast] = useState<ForecastPoint[]>([]);
   const [associations, setAssociations] = useState<ProductPair[]>([]);
   const [selectedProduct, setSelectedProduct] = useState('prod-1');
-
-  useEffect(() => {
-    const loadMLInsights = async () => {
-      const [fCast, assoc] = await Promise.all([
-        mockMLService.getDemandForecast(shop.id, selectedProduct, 7),
-        mockMLService.getAssociations(shop.id),
-      ]);
-      setForecast(fCast);
-      setAssociations(assoc);
-    };
-    loadMLInsights();
-  }, [shop.id, selectedProduct]);
-
-  // Curated lost demand items from customer searches/requests with zero stock
-  const lostDemandList = [
+  const [lostDemandList, setLostDemandList] = useState<any[]>([
     { query: '40W LED Batten Light (Surge Protected)', count: 18, category: 'Hardware', potentialRevenue: 7200 },
     { query: 'Cold-Pressed Groundnut Oil 1L', count: 14, category: 'Grocery', potentialRevenue: 3360 },
     { query: 'N95 Reusable Face Mask (Pack of 5)', count: 11, category: 'Pharmacy', potentialRevenue: 1650 },
     { query: 'Long Handle Coconut Tree Pruning Sickle', count: 9, category: 'Hardware', potentialRevenue: 4500 },
     { query: 'Camlin 24 Shade Water Colour Cakes', count: 8, category: 'Stationery', potentialRevenue: 960 },
-  ];
+  ]);
+
+  useEffect(() => {
+    const loadMLInsights = async () => {
+      const [fCast, assoc, ld] = await Promise.all([
+        mockMLService.getDemandForecast(shop.id, selectedProduct, 7),
+        mockMLService.getAssociations(shop.id),
+        api.getLostDemand(),
+      ]);
+      setForecast(fCast);
+      setAssociations(assoc);
+      if (ld && ld.length > 0) {
+        setLostDemandList(ld.map((item: any) => ({
+          query: item.query,
+          count: item.count || 1,
+          category: item.category || 'General',
+          potentialRevenue: item.potentialRevenue || ((item.count || 1) * 350),
+        })));
+      }
+    };
+    loadMLInsights();
+  }, [shop.id, selectedProduct]);
 
   // Top sellers and dead stock
   const topSellers = [

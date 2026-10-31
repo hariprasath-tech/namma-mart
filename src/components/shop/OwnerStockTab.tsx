@@ -18,6 +18,7 @@ import {
   X,
   Calendar,
   MessageCircle,
+  Trash2,
 } from 'lucide-react';
 
 interface OwnerStockTabProps {
@@ -28,6 +29,7 @@ interface OwnerStockTabProps {
   onUpdateStock: (offerId: string, currentStock: number, delta: number) => void;
   onUpdatePrice: (offerId: string, newPrice: number) => void;
   onOpenAddModal: () => void;
+  onDeleteOffer?: (offerId: string) => void;
 }
 
 export const OwnerStockTab: React.FC<OwnerStockTabProps> = ({
@@ -38,6 +40,7 @@ export const OwnerStockTab: React.FC<OwnerStockTabProps> = ({
   onUpdateStock,
   onUpdatePrice,
   onOpenAddModal,
+  onDeleteOffer,
 }) => {
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');

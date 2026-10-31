@@ -31,6 +31,8 @@ async function main() {
   await prisma.camera.deleteMany({});
   await prisma.itemRequestReply.deleteMany({});
   await prisma.itemRequest.deleteMany({});
+  await prisma.groupMember.deleteMany({});
+  await prisma.groupOrder.deleteMany({});
   await prisma.khataEntry.deleteMany({});
   await prisma.khataCustomer.deleteMany({});
   await prisma.expense.deleteMany({});
@@ -328,6 +330,49 @@ async function main() {
       synthetic: true,
     },
   });
+
+  // 12. Seed Group Orders
+  await prisma.groupOrder.create({
+    data: {
+      id: 'grp-1',
+      area: 'Palakkad Road / Kumaran Nagar',
+      shopId: 'shop-2',
+      shopName: 'Selvi Supermarket',
+      target: 5,
+      baseFee: 4000,
+      currentFee: 1500,
+      expiresAt: new Date(Date.now() + 4 * 60 * 60 * 1000),
+      members: {
+        create: [
+          { name: 'Kavitha Devi' },
+          { name: 'Senthil Nathan' },
+          { name: 'Raniammal' },
+        ],
+      },
+    },
+  });
+
+  await prisma.groupOrder.create({
+    data: {
+      id: 'grp-2',
+      area: 'Venkatesa Colony / NGM Arch',
+      shopId: 'shop-1',
+      shopName: 'Sri Krishna Provisions',
+      target: 5,
+      baseFee: 3500,
+      currentFee: 1000,
+      expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000),
+      members: {
+        create: [
+          { name: 'Arivu K.' },
+          { name: 'Priya Mani' },
+          { name: 'Karthik S.' },
+          { name: 'Dhandapani' },
+        ],
+      },
+    },
+  });
+  console.log('✓ Seeded neighbourhood group orders');
 
   console.log('✅ LocalKart v3 database seeding finished successfully!');
 }

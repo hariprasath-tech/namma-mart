@@ -429,6 +429,98 @@ export async function orderRoutes(fastify: FastifyInstance) {
     return { requests };
   });
 
+  // POST /requests/:id/reply (Merchant Quotation / Reply to Can't Find It Request)
+  fastify.post('/requests/:id/reply', async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const schema = z.object({
+      shopId: z.string(),
+      shopName: z.string(),
+      price: z.number().int().optional(),
+      available: z.boolean().default(true),
+    });
+
+    const body = schema.parse(request.body);
+    const itemReq = await prisma.itemRequest.findUnique({ where: { id } });
+    if (!itemReq) {
+      throw new AppError(404, 'REQUEST_NOT_FOUND', `Item inquiry #${id} not found`, 'Provide a valid request ID');
+    }
+
+    const createdReply = await prisma.itemRequestReply.create({
+      data: {
+        requestId: id,
+        shopId: body.shopId,
+        shopName: body.shopName,
+        price: body.price,
+        available: body.available,
+      },
+    });
+
+    return reply.status(201).send({ reply: createdReply });
+  });
+
+  // GET /groups (List Active Neighbourhood Group Orders)
+  fastify.get('/groups', async (request, reply) => {
+    const area = (request.query as any)?.area;
+    const where: any = {};
+    if (area) {
+      where.area = { contains: area };
+    }
+
+    const groups = await prisma.groupOrder.findMany({
+      where,
+      include: { members: true, shop: true },
+      orderBy: { expiresAt: 'asc' },
+    });
+
+    return {
+      groups: groups.map((g) => ({
+        id: g.id,
+        area: g.area,
+        shopId: g.shopId,
+        shopName: g.shopName,
+        joined: g.members.length,
+        target: g.target,
+        baseFee: g.baseFee,
+        currentFee: g.currentFee,
+        expiresAt: g.expiresAt.toISOString(),
+        members: g.members,
+      })),
+    };
+  });
+
+  // POST /groups (Create New Neighbourhood Group Order)
+  fastify.post('/groups', async (request, reply) => {
+    const schema = z.object({
+      shopId: z.string().default('shop-1'),
+      area: z.string().min(2),
+      target: z.number().int().min(2).default(5),
+      baseFee: z.number().int().default(4000), // in paise (₹40)
+      hoursValid: z.number().int().min(1).max(24).default(4),
+    });
+
+    const body = schema.parse(request.body);
+    const shop = await prisma.shop.findUnique({ where: { id: body.shopId } });
+    if (!shop) {
+      throw new AppError(404, 'SHOP_NOT_FOUND', `Shop #${body.shopId} not found`, 'Choose an existing shop');
+    }
+
+    const expiresAt = new Date(Date.now() + body.hoursValid * 60 * 60 * 1000);
+    const group = await prisma.groupOrder.create({
+      data: {
+        shopId: body.shopId,
+        shopName: shop.shortName || shop.name,
+        area: body.area,
+        target: body.target,
+        baseFee: body.baseFee,
+        currentFee: body.baseFee,
+        expiresAt,
+      },
+      include: { members: true },
+    });
+
+    return reply.status(201).send({ group });
+  });
+
   // POST /groups/:id/join (Fee falls as members join)
   fastify.post('/groups/:id/join', async (request, reply) => {
     const { id } = request.params as { id: string };

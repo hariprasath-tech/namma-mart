@@ -115,6 +115,29 @@ export const CheckoutPage: React.FC = () => {
     }
 
     try {
+      if (distinctShopsCount > 1) {
+        const mvRes = await api.createMultiVendorOrder({
+          customerName: name,
+          customerPhone: phone,
+          deliveryAddress: mode === 'delivery' ? address : undefined,
+          mode,
+          payment: paymentMethod,
+          items: orderItemsData.map((it) => ({
+            offerId: it.offerId,
+            qty: it.qty,
+          })),
+        });
+
+        if (mvRes && mvRes.orders && mvRes.orders.length > 0) {
+          if (mode === 'delivery') {
+            setSavedAddress(address);
+          }
+          clearCart();
+          navigate(`/orders/${mvRes.orders[0].id}`);
+          return;
+        }
+      }
+
       const createdOrder = await api.createOrder({
         shopId: firstShopId,
         shopName: firstShop?.name || 'Pollachi Local Store',

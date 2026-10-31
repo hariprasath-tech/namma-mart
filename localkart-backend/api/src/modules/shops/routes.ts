@@ -70,6 +70,57 @@ export async function shopRoutes(fastify: FastifyInstance) {
     return { reviews };
   });
 
+  // POST /shops/:id/reviews (Submit Customer Rating & Review)
+  fastify.post('/:id/reviews', async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const schema = z.object({
+      rating: z.number().int().min(1).max(5),
+      text: z.string().min(2),
+      textTa: z.string().optional(),
+      author: z.string().default('Pollachi Shopper'),
+      userId: z.string().optional(),
+      productId: z.string().optional(),
+    });
+
+    const body = schema.parse(request.body);
+    const shop = await prisma.shop.findUnique({ where: { id } });
+    if (!shop) {
+      throw new AppError(404, 'SHOP_NOT_FOUND', `Shop #${id} not found`, 'Choose an active shop');
+    }
+
+    const review = await prisma.$transaction(async (tx) => {
+      const createdReview = await tx.review.create({
+        data: {
+          shopId: id,
+          userId: body.userId,
+          productId: body.productId,
+          author: body.author,
+          rating: body.rating,
+          text: body.text,
+          textTa: body.textTa,
+        },
+      });
+
+      const allReviews = await tx.review.findMany({
+        where: { shopId: id },
+        select: { rating: true },
+      });
+
+      const avgRating = allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+      await tx.shop.update({
+        where: { id },
+        data: {
+          rating: parseFloat(avgRating.toFixed(1)),
+          reviewCount: allReviews.length,
+        },
+      });
+
+      return createdReview;
+    });
+
+    return reply.status(201).send({ review });
+  });
+
   // GET /shops/:id/crowd (Proxies ML service with fallback)
   fastify.get('/:id/crowd', async (request, reply) => {
     const { id } = request.params as { id: string };

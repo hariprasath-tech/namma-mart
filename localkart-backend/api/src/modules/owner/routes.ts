@@ -116,6 +116,16 @@ export async function ownerRoutes(fastify: FastifyInstance) {
     return reply.status(201).send({ expense });
   });
 
+  // GET /owner/expenses
+  fastify.get('/expenses', async (request, reply) => {
+    const shopId = (request.query as any)?.shopId || 'shop-1';
+    const expenses = await prisma.expense.findMany({
+      where: { shopId },
+      orderBy: { date: 'desc' },
+    });
+    return { expenses };
+  });
+
   // GET /owner/pnl
   fastify.get('/pnl', async (request, reply) => {
     const shopId = (request.query as any)?.shopId || 'shop-1';
@@ -248,6 +258,42 @@ export async function ownerRoutes(fastify: FastifyInstance) {
     const shopId = (request.query as any)?.shopId || 'shop-1';
     const cameraId = (request.query as any)?.cameraId || 'cam-grains';
 
+    // 1. Fetch latest persistent snapshot for this camera from DB
+    const latestSnapshot = await prisma.shelfSnapshot.findFirst({
+      where: {
+        camera: { shopId },
+      },
+      orderBy: { capturedAt: 'desc' },
+      include: { gaps: true, camera: true },
+    });
+
+    if (latestSnapshot) {
+      let boxes: any[] = [];
+      try {
+        boxes = JSON.parse(latestSnapshot.boxesJson);
+      } catch {
+        boxes = [];
+      }
+
+      return {
+        cameraId: latestSnapshot.cameraId,
+        capturedAt: latestSnapshot.capturedAt.toISOString(),
+        boxes,
+        gaps: latestSnapshot.gaps.map((g) => ({
+          slot: g.slot,
+          productId: g.productId,
+          missing: g.missing,
+        })),
+        meta: {
+          model: 'LocalKart-ShelfGap-v3',
+          version: '3.0.0',
+          source: 'fine-tuned',
+          frameHash: latestSnapshot.frameHash,
+          gapCount: latestSnapshot.gapCount,
+        },
+      };
+    }
+
     return {
       cameraId,
       capturedAt: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
@@ -261,6 +307,80 @@ export async function ownerRoutes(fastify: FastifyInstance) {
       ],
       meta: { model: 'simulated-yolov8-edge', version: '1.0', source: 'synthetic' },
     };
+  });
+
+  // POST /owner/shelf/analyze (Record edge camera frame analysis with Zero Raw Image Persistence)
+  fastify.post('/shelf/analyze', async (request, reply) => {
+    const schema = z.object({
+      shopId: z.string().default('shop-1'),
+      cameraId: z.string().default('cam-grains'),
+      boxes: z.array(
+        z.object({
+          label: z.string(),
+          qty: z.number().int().min(0),
+          confidence: z.number().min(0).max(1),
+          bbox: z.array(z.number()),
+        })
+      ).default([]),
+      gaps: z.array(
+        z.object({
+          slot: z.string(),
+          productId: z.string(),
+          missing: z.number().int().min(1),
+        })
+      ).default([]),
+      frameHash: z.string().optional(),
+    });
+
+    const body = schema.parse(request.body);
+
+    // Ensure camera exists
+    let camera = await prisma.camera.findUnique({ where: { id: body.cameraId } });
+    if (!camera) {
+      camera = await prisma.camera.create({
+        data: {
+          id: body.cameraId,
+          shopId: body.shopId,
+          name: `Camera ${body.cameraId}`,
+          zoneId: 'grocery',
+          status: 'online',
+        },
+      });
+    }
+
+    const calculatedHash = body.frameHash || `hash_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+
+    const snapshot = await prisma.shelfSnapshot.create({
+      data: {
+        cameraId: camera.id,
+        frameHash: calculatedHash,
+        boxesJson: JSON.stringify(body.boxes),
+        gapCount: body.gaps.length,
+        gaps: {
+          create: body.gaps.map((g) => ({
+            slot: g.slot,
+            productId: g.productId,
+            missing: g.missing,
+          })),
+        },
+      },
+      include: { gaps: true },
+    });
+
+    return reply.status(201).send({
+      snapshot: {
+        cameraId: snapshot.cameraId,
+        capturedAt: snapshot.capturedAt.toISOString(),
+        boxes: body.boxes,
+        gaps: snapshot.gaps,
+        meta: {
+          model: 'LocalKart-ShelfDetector-v3',
+          version: '3.0.0',
+          source: 'fine-tuned',
+          frameHash: calculatedHash,
+        },
+      },
+    });
   });
 
   // POST /owner/stock (Create / add item to inventory)
@@ -384,6 +504,34 @@ export async function ownerRoutes(fastify: FastifyInstance) {
     }
 
     return { offer: updated };
+  });
+
+  // DELETE /owner/stock/:id (Remove item from inventory)
+  fastify.delete('/stock/:id', async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const existing = await prisma.offer.findUnique({
+      where: { id },
+      include: { product: true },
+    });
+
+    if (!existing) {
+      throw new AppError(404, 'OFFER_NOT_FOUND', 'Stock item not found', 'Check inventory ID');
+    }
+
+    await prisma.offer.delete({ where: { id } });
+
+    await prisma.stockMovement.create({
+      data: {
+        shopId: existing.shopId,
+        productId: existing.productId,
+        productName: existing.product.name,
+        type: 'adjust',
+        qty: -existing.stock,
+        note: 'Offer discontinued and removed from catalog',
+      },
+    });
+
+    return { success: true, message: 'Stock item deleted from inventory' };
   });
 
   // POST /owner/stock/import (CSV Bulk Upload with Row-Numbered Error Validation)
@@ -708,6 +856,22 @@ export async function ownerRoutes(fastify: FastifyInstance) {
         estimatedQueueMins: 5,
         updatedAt: new Date().toISOString(),
       };
+    }
+  });
+
+  // GET /owner/crowd/footfall (Hourly Footfall Distribution)
+  fastify.get('/crowd/footfall', async (request, reply) => {
+    const shopId = (request.query as any)?.shopId || 'shop-1';
+    const date = (request.query as any)?.date || new Date().toISOString().split('T')[0];
+    try {
+      const footfall = await mlProxy.getFootfallByHour(shopId, date);
+      return { footfall };
+    } catch {
+      const baseCurve = [
+        0, 0, 0, 0, 0, 2, 8, 18, 35, 42, 48, 55,
+        50, 45, 38, 44, 62, 85, 110, 95, 70, 40, 15, 4
+      ];
+      return { footfall: baseCurve };
     }
   });
 

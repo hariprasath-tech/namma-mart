@@ -34,7 +34,7 @@ async def get_product_forecast(
             cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT strftime('%Y-%m-%d', at) as day, SUM(qty)
+                SELECT strftime('%Y-%m-%d', at) as day, ABS(SUM(qty))
                 FROM StockMovement
                 WHERE shopId = ? AND type = 'sale'
                 GROUP BY day

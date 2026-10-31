@@ -19,6 +19,30 @@ export async function catalogueRoutes(fastify: FastifyInstance) {
     return { products };
   });
 
+  // GET /offers?productId=&shopId=
+  fastify.get('/offers', async (request, reply) => {
+    const querySchema = z.object({
+      productId: z.string().optional(),
+      shopId: z.string().optional(),
+    });
+
+    const { productId, shopId } = querySchema.parse(request.query);
+    const where: any = {};
+    if (productId) where.productId = productId;
+    if (shopId) where.shopId = shopId;
+
+    const offers = await prisma.offer.findMany({
+      where,
+      include: {
+        product: true,
+        shop: true,
+      },
+      orderBy: { price: 'asc' },
+    });
+
+    return { offers };
+  });
+
   // GET /products/:id
   fastify.get('/products/:id', async (request, reply) => {
     const { id } = request.params as { id: string };

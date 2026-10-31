@@ -472,4 +472,105 @@ describe('LocalKart v3 - API Integration Tests', () => {
       expect(roleRes.body.user.role).toBe('customer');
     });
   });
+
+  // 13. Group Orders & Community Buying
+  describe('Group Orders (/api/v1/groups)', () => {
+    it('lists active group orders with dynamic delivery fee', async () => {
+      const res = await request.get('/api/v1/groups');
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body.groups)).toBe(true);
+      expect(res.body.groups.length).toBeGreaterThan(0);
+      expect(res.body.groups[0].currentFee).toBeDefined();
+    });
+
+    it('allows a neighbour to join and dynamically reduces delivery fee', async () => {
+      const groupsRes = await request.get('/api/v1/groups');
+      const grp = groupsRes.body.groups[0];
+      const initialFee = grp.currentFee;
+
+      const joinRes = await request.post(`/api/v1/groups/${grp.id}/join`).send({
+        name: 'Thangavel M.',
+      });
+      expect(joinRes.status).toBe(200);
+      expect(joinRes.body.group.members.length).toBeGreaterThan(grp.joined);
+      expect(joinRes.body.group.currentFee).toBeLessThanOrEqual(initialFee);
+    });
+  });
+
+  // 14. Item Requests & Vendor Quotations
+  describe('Item Requests & Merchant Quotations', () => {
+    it('allows merchant to reply with a quotation to a customer request', async () => {
+      const reqList = await request.get('/api/v1/requests');
+      expect(reqList.status).toBe(200);
+      const reqItem = reqList.body.requests[0];
+
+      const replyRes = await request.post(`/api/v1/requests/${reqItem.id}/reply`).send({
+        shopId: 'shop-1',
+        shopName: 'Sri Krishna Provisions',
+        price: 8500, // ₹85
+        available: true,
+      });
+      expect(replyRes.status).toBe(201);
+      expect(replyRes.body.reply.requestId).toBe(reqItem.id);
+      expect(replyRes.body.reply.price).toBe(8500);
+    });
+  });
+
+  // 15. Store Catalogue & Direct Reviews
+  describe('Store Catalogue & Direct Reviews', () => {
+    it('returns offers for a product across all shops via GET /api/v1/offers', async () => {
+      const res = await request.get('/api/v1/offers?productId=prod-1');
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body.offers)).toBe(true);
+      expect(res.body.offers.length).toBeGreaterThan(0);
+      expect(res.body.offers[0].productId).toBe('prod-1');
+      expect(res.body.offers[0].shop).toBeDefined();
+    });
+
+    it('submits a direct customer review on a shop and updates rating', async () => {
+      const shop = await prisma.shop.findFirst();
+      if (!shop) return;
+
+      const res = await request.post(`/api/v1/shops/${shop.id}/reviews`).send({
+        rating: 5,
+        text: 'Clean store, fast delivery, authentic Pollachi products!',
+        author: 'Nalini V.',
+      });
+      expect(res.status).toBe(201);
+      expect(res.body.review.rating).toBe(5);
+
+      const updatedShop = await prisma.shop.findUnique({ where: { id: shop.id } });
+      expect(updatedShop?.reviewCount).toBeGreaterThan(0);
+    });
+  });
+
+  // 16. Merchant Expense Management & Smart Shelf Edge Frame Analysis
+  describe('Merchant Operations: Expenses & Smart Shelf', () => {
+    it('retrieves merchant expenses via GET /api/v1/owner/expenses', async () => {
+      const res = await request.get('/api/v1/owner/expenses?shopId=shop-1');
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body.expenses)).toBe(true);
+      expect(res.body.expenses.length).toBeGreaterThan(0);
+    });
+
+    it('processes edge camera frame analysis without persisting raw image to disk', async () => {
+      const frameRes = await request.post('/api/v1/owner/shelf/analyze').send({
+        shopId: 'shop-1',
+        cameraId: 'cam-grains',
+        boxes: [
+          { label: 'Ponni Rice 1kg', qty: 10, confidence: 0.95, bbox: [10, 20, 30, 40] },
+        ],
+        gaps: [
+          { slot: 'Rack-A2', productId: 'prod-1', missing: 2 },
+        ],
+        frameHash: 'sha256_mock_test_hash_001',
+      });
+      expect(frameRes.status).toBe(201);
+      expect(frameRes.body.snapshot.meta.frameHash).toBe('sha256_mock_test_hash_001');
+
+      const statusRes = await request.get('/api/v1/owner/shelf/status?shopId=shop-1&cameraId=cam-grains');
+      expect(statusRes.status).toBe(200);
+      expect(statusRes.body.gaps.length).toBeGreaterThan(0);
+    });
+  });
 });
